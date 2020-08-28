@@ -9,7 +9,7 @@
 <summary>記事を書いた経緯</summary>
 <div>
 
-筆者は [GiNZA](https://github.com/megagonlabs/ginza) の開発者の方々と何の関係もありません。
+筆者は [GiNZA](https://github.com/megagonlabs/ginza) の開発者の方々と何の利害関係もありません。
 自然言語処理系の最新技術を検索していてたまたま見つけ、その簡単さに感動したので勝手に宣伝しています。
 
 > 全ての開発は感動から始まる。
@@ -33,7 +33,7 @@
 
 ![GiNZAのロゴ](https://raw.githubusercontent.com/megagonlabs/ginza/static/docs/images/GiNZA_logo_4c_y.png)
 
-[GiNZA](https://github.com/megagonlabs/ginza) は **日本語の** 自然言語処理のライブラリです。
+[GiNZA](https://github.com/megagonlabs/ginza) は **日本語の** 自然言語処理ライブラリです。
 もともと [spaCy](https://spacy.io/) という自然言語処理のフレームワークがあり、英語など主要な言語に対応していました。 [GiNZA](https://github.com/megagonlabs/ginza) は [spaCy](https://spacy.io/) の日本語対応版です。
 詳細については [GiNZAの公開ページ](https://megagonlabs.github.io/ginza/) をご覧ください。
 
@@ -48,13 +48,14 @@
   * [MeCab](https://taku910.github.io/mecab/) はOSに応じた環境構築を行わねばなりません。
   * [GiNZA](https://github.com/megagonlabs/ginza) の導入はOSに関係なく `$ pip install ginza` でできます。
 * [spaCy](https://spacy.io/) フレームワークを採用している
-  * 英語などの言語で [spaCy](https://spacy.io/) を利用したAIの実践例が見つかります。
+  * 英語などの言語で [spaCy](https://spacy.io/) を利用した機械学習の実践例が見つかります。
   * [GiNZA](https://github.com/megagonlabs/ginza) の登場で同じことが日本語でもできるようになりました。
+  * 例えばチャットボットAIのフレームワークで有名な [Rasa](https://rasa.com/) は [GiNZA](https://github.com/megagonlabs/ginza) のおかげで日本語でも使えるようになりました。
 * [最新の研究](https://github.com/megagonlabs/ginza#training-data-sets) を反映している
 
 なお、決して [MeCab](https://taku910.github.io/mecab/) をディスっているわけではないことを強調しておきます。状況や目的によって最適な選択は変わります。
 [MeCab](https://taku910.github.io/mecab/) はすでに長期間使用されており、高速というだけでなく高い信頼性、そして豊富な実践例があります。
-また、最新の語彙に対応した [NEologd](https://github.com/neologd/mecab-ipadic-neologd) や、国立国語研究所が開発した [UniDic](https://unidic.ninjal.ac.jp/about_unidic) を利用することもできます。
+また、最新の語彙に随時対応し続ける [NEologd](https://github.com/neologd/mecab-ipadic-neologd) や、国立国語研究所が開発した [UniDic](https://unidic.ninjal.ac.jp/about_unidic) を利用することもできます。
 
 </div>
 </details>
@@ -62,8 +63,30 @@
 ## GiNZAを動かす
 TODO: 動作確認環境とその日付
 
-* repl.itから動かす（環境構築不要）
-* pullして動かす
+Pythonに親しみのない方や手っ取り早く動作環境がほしい方向けにオンラインの実行環境を用意しています。
+本格的に動作検証したい方は [GiNZA examples](https://github.com/poyo46/ginza-examples) をcloneしてご利用ください。
+
+**オンラインで動かす（環境構築不要）**
+TODO:
+
+**ローカル環境で動かす**
+
+セットアップ
+
+```
+$ git clone https://github.com/poyo46/ginza-examples.git
+$ cd ginza-examples
+$ poetry install
+```
+
+実行
+```
+$ python ginza-examples/***.py
+```
+
+### 形態素解析
+
+### 文章を文のリストに分ける
 
 ## ライセンス
 
