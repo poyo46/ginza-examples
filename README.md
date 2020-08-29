@@ -126,7 +126,7 @@ print(attrs_list)
 
 
 <details>
-<summary>説明</summary>
+<summary>説明を開く</summary>
 <div>
 日本語の文を単語ごとに分け、各単語の解析結果を表示しています。
 
@@ -135,7 +135,7 @@ print(attrs_list)
 `Token.ent_type_` は固有表現と呼ばれるもので、例えば人名には `Person` が、料理名には `Dish` が割り当てられます。
 詳細な定義については [こちら](http://liat-aip.sakura.ne.jp/ene/ene8/definition_jp/html/enedetail.html) をご覧ください。
 
-`Token` の他の属性については [spaCy API doc](https://spacy.io/api/token#attributes) をご覧ください。
+Tokenの他の属性については [spaCy API doc](https://spacy.io/api/token#attributes) をご覧ください。
 </div>
 </details>
 
@@ -168,7 +168,7 @@ print(sentences)
 ```
 
 <details>
-<summary>説明</summary>
+<summary>説明を開く</summary>
 <div>
 [spaCy](https://spacy.io/) の [Doc.sents](https://spacy.io/api/doc#sents) を利用しています。
 </div>

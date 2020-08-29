@@ -106,7 +106,7 @@ $token_information_res
 `Token.ent_type_` は固有表現と呼ばれるもので、例えば人名には `Person` が、料理名には `Dish` が割り当てられます。
 詳細な定義については [こちら](http://liat-aip.sakura.ne.jp/ene/ene8/definition_jp/html/enedetail.html) をご覧ください。
 
-Tokenの他の属性については [spaCy API doc](https://spacy.io/api/token#attributes) をご覧ください。
+`Token` の他の属性については [spaCy API doc](https://spacy.io/api/token#attributes) をご覧ください。
 </div>
 </details>
 
