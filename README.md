@@ -133,7 +133,7 @@ print(attrs_list)
 
 `Token.pos_` は [Universal Part-of-speech Tags](https://spacy.io/api/annotation#pos-universal) と呼ばれるもので、言語に依存せず全世界的に品詞を表そうというものです（Part-of-speech = 品詞）。
 
-`Token.ent_type_` は固有表現と呼ばれるもので、例えば人名には `Person` が, 料理名には `Dish` が割り当てられます。
+`Token.ent_type_` は固有表現と呼ばれるもので、例えば人名には `Person` が、料理名には `Dish` が割り当てられます。
 詳細な定義については [こちら](http://liat-aip.sakura.ne.jp/ene/ene8/definition_jp/html/enedetail.html) をご覧ください。
 
 Tokenの属性は他にもあります。詳細については [spacy API doc](https://spacy.io/api/token#attributes) をご覧ください。
@@ -141,7 +141,41 @@ Tokenの属性は他にもあります。詳細については [spacy API doc](h
 </div>
 </details>
 
+**応用**
+この解析結果を使って例えば次のようなことができます。
+* 文中に含まれる単語から動詞と形容詞の原形を抽出する。
+* 文中に含まれる食べ物を抽出してカウントする。
+* 文中の個人情報をマスキングする。
+
 ### 文章を文のリストに分ける
+
+**ソースコード**
+
+```python
+import spacy
+
+nlp = spacy.load('ja_ginza')
+
+doc = nlp('はい、そうです。ありがとうございますよろしくお願いします。')
+sentences = [s.text for s in doc.sents]
+
+print(sentences)
+```
+
+**結果**
+
+```bash
+['はい、そうです。', 'ありがとうございます', 'よろしくお願いします。']
+```
+
+<details>
+<summary>説明</summary>
+<div>
+
+[spaCy](https://spacy.io/) の [Doc.sents](https://spacy.io/api/doc#sents) を利用しています。
+
+</div>
+</details>
 
 ## ライセンス
 

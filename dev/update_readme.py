@@ -1,8 +1,9 @@
 #  PYTHONPATH=./ python dev/update_readme.py
 
+from typing import Optional
 from pathlib import Path
 from dev.util import table_md, get_function_source
-from examples.token_information import HEADER, TEXT, tokenize
+from examples import token_information, split_text
 
 rep = {
     '$ginza': '[GiNZA](https://github.com/megagonlabs/ginza)',
@@ -13,18 +14,45 @@ rep = {
 }
 
 
+def basic_src(f, text, import_ginza: Optional[bool] = None) -> str:
+    if import_ginza is None:
+        import_ginza = False
+    if import_ginza:
+        blocks = [
+            'import spacy',
+            'import ginza\n',
+            "nlp = spacy.load('ja_ginza')\n",
+            get_function_source(f).replace('nlp(text)', f"nlp('{text}')")
+        ]
+    else:
+        blocks = [
+            'import spacy\n',
+            "nlp = spacy.load('ja_ginza')\n",
+            get_function_source(f).replace('nlp(text)', f"nlp('{text}')")
+        ]
+    return '\n'.join(blocks) + '\n\n'
+
+
 def update_replacements() -> None:
     print('token_information - tokenize')
-
-    token_information_src = '\n'.join([
-        'import spacy',
-        'import ginza\n',
-        "nlp = spacy.load('ja_ginza')\n",
-        get_function_source(tokenize).replace('nlp(text)', f"nlp('{TEXT}')"),
-        '\nprint(attrs_list)'
-    ])
+    token_information_src = basic_src(
+        token_information.tokenize, token_information.TEXT, import_ginza=True
+    ) + 'print(attrs_list)'
     rep['$token_information_src'] = token_information_src
-    rep['$token_information_result'] = table_md(HEADER, tokenize(TEXT))
+    rep['$token_information_res'] = table_md(
+        token_information.HEADER,
+        token_information.tokenize(token_information.TEXT)
+    )
+
+    print('split_text - split_text_into_list_of_sentences')
+    split_text_src = basic_src(
+        split_text.split_text_into_list_of_sentences,
+        split_text.TEXT
+    ) + 'print(sentences)'
+    rep['$split_text_src'] = split_text_src
+    rep['$split_text_res'] = split_text.split_text_into_list_of_sentences(
+        split_text.TEXT
+    ).__str__()
 
 
 def readme_template() -> str:
