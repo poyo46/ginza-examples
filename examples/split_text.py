@@ -29,5 +29,10 @@ def split_text_into_list_of_sentences(text: str) -> List[str]:
 
 TEXT = 'はい、そうです。ありがとうございますよろしくお願いします。'
 
-if __name__ == '__main__':
+
+def main():
     print(split_text_into_list_of_sentences(TEXT))
+
+
+if __name__ == '__main__':
+    main()

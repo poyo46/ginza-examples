@@ -28,7 +28,7 @@ def basic_src(f, text, import_ginza: Optional[bool] = None) -> str:
 
 def rep_def() -> Dict[str, str]:
     file_path = Path(__file__).parent / 'data' / 'rep.yml'
-    with open(file_path, mode='rt') as f:
+    with open(file_path, mode='rt', encoding='utf-8') as f:
         text = f.read()
     yml = yaml.safe_load(text)
     return yml
@@ -59,7 +59,7 @@ def updated_rep(dic) -> Dict:
 
 def readme_template() -> str:
     file_path = Path(__file__).parent / 'data' / 'README.md.tpl'
-    with open(file_path, mode='rt') as f:
+    with open(file_path, mode='rt', encoding='utf-8') as f:
         return f.read()
 
 
@@ -71,7 +71,7 @@ def replace_vars(md: str) -> str:
 
 def save_readme(md: str) -> None:
     file_path = Path(__file__).parents[1] / 'README.md'
-    with open(file_path, mode='wt') as f:
+    with open(file_path, mode='wt', encoding='utf-8') as f:
         f.write(md)
 
 

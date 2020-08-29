@@ -1,4 +1,4 @@
-from examples.token_information import tokenize, TEXT
+from examples.token_information import tokenize, TEXT, main
 
 
 def test_tokenize():
@@ -17,3 +17,7 @@ def test_tokenize():
         ['6', '。', '。', '。', 'PUNCT', '補助記号-句点', '', '']
     ]
     assert attrs_list == expected
+
+
+def test_main():
+    main()

@@ -60,5 +60,10 @@ HEADER = [
 ]
 TEXT = '田中部長に伝えてください。'
 
-if __name__ == '__main__':
+
+def main():
     print_table(HEADER, tokenize(TEXT))
+
+
+if __name__ == '__main__':
+    main()

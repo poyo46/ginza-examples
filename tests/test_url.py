@@ -14,9 +14,9 @@ def extracted_urls() -> List[str]:
         README.mdに含まれるURLのリスト。重複は除かれている。
     """
     file_path = Path(__file__).parents[1] / 'README.md'
-    with open(file_path, mode='rt') as f:
+    with open(file_path, mode='rt', encoding='utf-8') as f:
         readme = f.read()
-    urls = re.findall('https?://[\w/:%#\$&\?~\.=\+\-]+', readme)
+    urls = re.findall(r'https?://[\w/:%#$&?~.=+-]+', readme)
     return list(set(urls))
 
 
