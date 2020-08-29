@@ -3,7 +3,7 @@
 ## この記事について
 
 本記事は、日本語の自然言語処理ライブラリである [GiNZA](https://github.com/megagonlabs/ginza) の紹介記事です。
-[Qiitaの記事](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971) と [GitHubのリポジトリ](https://github.com/poyo46/ginza-examples) の二箇所に同じものを公開しています。
+[Qiitaの記事](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971) と [GiNZA examples - GitHub](https://github.com/poyo46/ginza-examples) の二箇所に同じものを公開しています。
 
 <details>
 <summary>記事を書いた経緯</summary>
@@ -64,7 +64,7 @@
 TODO: 動作確認環境とその日付
 
 Pythonに親しみのない方や手っ取り早く動作環境がほしい方向けにオンラインの実行環境を用意しています。
-本格的に動作検証したい方は [GitHubのリポジトリ](https://github.com/poyo46/ginza-examples) をcloneしてご利用ください。
+本格的に動作検証したい方は [GiNZA examples - GitHub](https://github.com/poyo46/ginza-examples) をcloneしてご利用ください。
 
 **オンラインで動かす（環境構築不要）**
 TODO:
@@ -86,7 +86,8 @@ $ python examples/***.py
 
 ### 形態素解析
 
-ソースコード
+**ソースコード**
+
 ```python
 import spacy
 import ginza
@@ -111,7 +112,7 @@ for token in doc:
 print(attrs_list)
 ```
 
-結果（整形済み）
+**結果（整形済み）**
 
 | i | text | lemma_ | reading_form | pos_ | tag_ | inflection | ent_type_ |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
@@ -124,6 +125,22 @@ print(attrs_list)
 | 6 | 。 | 。 | 。 | PUNCT | 補助記号-句点 |  |  |
 
 
+<details>
+<summary>説明</summary>
+<div>
+
+日本語の文を単語ごとに分け、各単語の解析結果を表示しています。
+
+`Token.pos_` は [Universal Part-of-speech Tags](https://spacy.io/api/annotation#pos-universal) と呼ばれるもので、言語に依存せず全世界的に品詞を表そうというものです（Part-of-speech = 品詞）。
+
+`Token.ent_type_` は固有表現と呼ばれるもので、例えば人名には `Person` が, 料理名には `Dish` が割り当てられます。
+詳細な定義については [こちら](http://liat-aip.sakura.ne.jp/ene/ene8/definition_jp/html/enedetail.html) をご覧ください。
+
+Tokenの属性は他にもあります。詳細については [spacy API doc](https://spacy.io/api/token#attributes) をご覧ください。
+
+</div>
+</details>
+
 ### 文章を文のリストに分ける
 
 ## ライセンス
@@ -132,7 +149,7 @@ print(attrs_list)
 [GiNZA](https://github.com/megagonlabs/ginza) そのものは [MIT License](https://github.com/megagonlabs/ginza/blob/develop/LICENSE) で利用できます。詳しくは [ライセンス条項](https://github.com/megagonlabs/ginza#license) をご覧ください。
 
 ### GiNZA examples
-[Qiitaの記事](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971) および [GitHubのリポジトリ](https://github.com/poyo46/ginza-examples) も同様に [MIT License](https://github.com/poyo46/ginza-examples/blob/master/LICENSE) で利用できます。
+筆者の [Qiitaの記事](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971) および [GiNZA examples - GitHub](https://github.com/poyo46/ginza-examples) も同様に [MIT License](https://github.com/poyo46/ginza-examples/blob/master/LICENSE) で利用できます。
 
 ## 参考文献
 * [株式会社リクルートの発表](https://www.recruit.co.jp/newsroom/2019/0402_18331.html)

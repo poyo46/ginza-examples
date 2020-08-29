@@ -86,14 +86,31 @@ $ python examples/***.py
 
 ### 形態素解析
 
-ソースコード
+**ソースコード**
+
 ```python
 $token_information_src
 ```
 
-結果（整形済み）
+**結果（整形済み）**
 
 $token_information_result
+
+<details>
+<summary>説明</summary>
+<div>
+
+日本語の文を単語ごとに分け、各単語の解析結果を表示しています。
+
+`Token.pos_` は [Universal Part-of-speech Tags](https://spacy.io/api/annotation#pos-universal) と呼ばれるもので、言語に依存せず全世界的に品詞を表そうというものです（Part-of-speech = 品詞）。
+
+`Token.ent_type_` は固有表現と呼ばれるもので、例えば人名には `Person` が, 料理名には `Dish` が割り当てられます。
+詳細な定義については [こちら](http://liat-aip.sakura.ne.jp/ene/ene8/definition_jp/html/enedetail.html) をご覧ください。
+
+Tokenの属性は他にもあります。詳細については [spacy API doc](https://spacy.io/api/token#attributes) をご覧ください。
+
+</div>
+</details>
 
 ### 文章を文のリストに分ける
 
@@ -103,7 +120,7 @@ $token_information_result
 $ginza そのものは [MIT License](https://github.com/megagonlabs/ginza/blob/develop/LICENSE) で利用できます。詳しくは [ライセンス条項](https://github.com/megagonlabs/ginza#license) をご覧ください。
 
 ### GiNZA examples
-$qiita および $github も同様に [MIT License](https://github.com/poyo46/ginza-examples/blob/master/LICENSE) で利用できます。
+筆者の $qiita および $github も同様に [MIT License](https://github.com/poyo46/ginza-examples/blob/master/LICENSE) で利用できます。
 
 ## 参考文献
 * [株式会社リクルートの発表](https://www.recruit.co.jp/newsroom/2019/0402_18331.html)

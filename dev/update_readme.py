@@ -7,7 +7,7 @@ from examples.token_information import HEADER, TEXT, tokenize
 rep = {
     '$ginza': '[GiNZA](https://github.com/megagonlabs/ginza)',
     '$qiita': '[Qiitaの記事](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971)',
-    '$github': '[GitHubのリポジトリ](https://github.com/poyo46/ginza-examples)',
+    '$github': '[GiNZA examples - GitHub](https://github.com/poyo46/ginza-examples)',
     '$spacy': '[spaCy](https://spacy.io/)',
     '$mecab': '[MeCab](https://taku910.github.io/mecab/)'
 }
