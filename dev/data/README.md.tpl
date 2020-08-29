@@ -65,6 +65,7 @@ $mecab はすでに長期間使用されており、高速というだけでな�
 ここで紹介するコードは [GitHubホストランナーの仮想環境](https://docs.github.com/ja/actions/reference/virtual-environments-for-github-hosted-runners#supported-runners-and-hardware-resources) のubuntu-latest, macos-latest, windows-latestとPython 3.6, 3.7, 3.8の組み合わせ（計9通り）で動作検証しています。
 
 **動作検証結果**
+
 [![TestExamples](https://github.com/poyo46/ginza-examples/workflows/TestExamples/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestExamples)
 [![TestOther](https://github.com/poyo46/ginza-examples/workflows/TestOther/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestOther)
 （$updated_at 更新）
@@ -75,7 +76,7 @@ Pythonに親しみのない方や手っ取り早く動作環境がほしい方�
 ブラウザで [こちら](https://repl.it/github/poyo46/ginza-examples) を開いて実行してください。
 ローカル環境で試行したい方は $github をcloneしてご利用ください。
 
-どちらの環境でもセットアップに `poetry install` が必要です。大きめの辞書をダウンロードするため5分程度かかる可能性があります。
+どちらの環境でもセットアップに `$ poetry install` が必要です。大きめの辞書をダウンロードするため5分程度かかる可能性があります。
 
 ### 形態素解析
 

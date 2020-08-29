@@ -2,6 +2,7 @@
 
 from typing import Optional, Dict
 from pathlib import Path
+from datetime import datetime, timedelta, timezone
 import yaml
 from dev.util import table_md, get_function_source
 from examples import token_information, split_text
@@ -35,6 +36,9 @@ def rep_def() -> Dict[str, str]:
 
 
 def updated_rep(dic) -> Dict:
+    jst = timezone(timedelta(hours=+9), 'JST')
+    dic['$updated_at'] = datetime.now(jst).strftime('%Y/%m/%d %H:%M:%S')
+
     print('token_information - tokenize')
     token_information_src = basic_src(
         token_information.tokenize, token_information.TEXT, import_ginza=True
