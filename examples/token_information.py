@@ -1,4 +1,5 @@
-from typing import List
+import sys
+from typing import List, Optional
 import spacy
 import ginza
 from rich.console import Console
@@ -61,9 +62,14 @@ HEADER = [
 TEXT = '田中部長に伝えてください。'
 
 
-def main():
-    print_table(HEADER, tokenize(TEXT))
+def main(text: Optional[str] = None):
+    if text is None:
+        text = TEXT
+    print_table(HEADER, tokenize(text))
 
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) > 1:
+        main(sys.argv[1])
+    else:
+        main()

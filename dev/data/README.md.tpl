@@ -61,28 +61,21 @@ $mecab はすでに長期間使用されており、高速というだけでな�
 </details>
 
 ## GiNZAを動かす
-TODO: 動作確認環境とその日付
+
+ここで紹介するコードは [GitHubホストランナーの仮想環境](https://docs.github.com/ja/actions/reference/virtual-environments-for-github-hosted-runners#supported-runners-and-hardware-resources) のubuntu-latest, macos-latest, windows-latestとPython 3.6, 3.7, 3.8の組み合わせ（計9通り）で動作検証しています。
+
+**動作検証結果**
+[![TestExamples](https://github.com/poyo46/ginza-examples/workflows/TestExamples/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestExamples)
+[![TestOther](https://github.com/poyo46/ginza-examples/workflows/TestOther/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestOther)
+（$updated_at 更新）
+
+**動作環境構築**
 
 Pythonに親しみのない方や手っ取り早く動作環境がほしい方向けにオンラインの実行環境を用意しています。
-本格的に動作検証したい方は $github をcloneしてご利用ください。
+ブラウザで [こちら](https://repl.it/github/poyo46/ginza-examples) を開いて実行してください。
+ローカル環境で試行したい方は $github をcloneしてご利用ください。
 
-**オンラインで動かす（環境構築不要）**
-TODO:
-
-**ローカル環境で動かす**
-
-セットアップ
-
-```
-$ git clone https://github.com/poyo46/ginza-examples.git
-$ cd ginza-examples
-$ poetry install
-```
-
-実行
-```
-$ python examples/***.py
-```
+どちらの環境でもセットアップに `poetry install` が必要です。大きめの辞書をダウンロードするため5分程度かかる可能性があります。
 
 ### 形態素解析
 
@@ -92,9 +85,21 @@ $ python examples/***.py
 $token_information_src
 ```
 
+**実行**
+
+```
+$ python examples/token_information.py
+```
+
 **結果（整形済み）**
 
 $token_information_res
+
+なお、テキストを指定して実行する場合は次のようにしてください。
+
+```
+$ python examples/token_information.py 吾輩は猫である。名前はまだ無い。
+```
 
 <details>
 <summary>説明を開く</summary>
@@ -127,10 +132,22 @@ $token_information_res
 $split_text_src
 ```
 
+**実行**
+
+```
+$ python examples/split_text.py
+```
+
 **結果**
 
 ```
 $split_text_res
+```
+
+なお、テキストを指定して実行する場合は次のようにしてください。
+
+```
+$ python examples/split_text.py 吾輩は猫である。名前はまだ無い。
 ```
 
 <details>

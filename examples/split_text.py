@@ -1,4 +1,5 @@
-from typing import List
+import sys
+from typing import List, Optional
 import spacy
 
 nlp = spacy.load('ja_ginza')
@@ -30,9 +31,14 @@ def split_text_into_list_of_sentences(text: str) -> List[str]:
 TEXT = 'はい、そうです。ありがとうございますよろしくお願いします。'
 
 
-def main():
-    print(split_text_into_list_of_sentences(TEXT))
+def main(text: Optional[str] = None):
+    if text is None:
+        text = TEXT
+    print(split_text_into_list_of_sentences(text))
 
 
 if __name__ == '__main__':
-    main()
+    if len(sys.argv) > 1:
+        main(sys.argv[1])
+    else:
+        main()

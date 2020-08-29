@@ -61,28 +61,21 @@
 </details>
 
 ## GiNZAを動かす
-TODO: 動作確認環境とその日付
+
+ここで紹介するコードは [GitHubホストランナーの仮想環境](https://docs.github.com/ja/actions/reference/virtual-environments-for-github-hosted-runners#supported-runners-and-hardware-resources) のubuntu-latest, macos-latest, windows-latestとPython 3.6, 3.7, 3.8の組み合わせ（計9通り）で動作検証しています。
+
+**動作検証結果**
+[![TestExamples](https://github.com/poyo46/ginza-examples/workflows/TestExamples/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestExamples)
+[![TestOther](https://github.com/poyo46/ginza-examples/workflows/TestOther/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestOther)
+（2020/08/30 04:42:37 更新）
+
+**動作環境構築**
 
 Pythonに親しみのない方や手っ取り早く動作環境がほしい方向けにオンラインの実行環境を用意しています。
-本格的に動作検証したい方は [GiNZA examples - GitHub](https://github.com/poyo46/ginza-examples) をcloneしてご利用ください。
+ブラウザで [こちら](https://repl.it/github/poyo46/ginza-examples) を開いて実行してください。
+ローカル環境で試行したい方は [GiNZA examples - GitHub](https://github.com/poyo46/ginza-examples) をcloneしてご利用ください。
 
-**オンラインで動かす（環境構築不要）**
-TODO:
-
-**ローカル環境で動かす**
-
-セットアップ
-
-```
-$ git clone https://github.com/poyo46/ginza-examples.git
-$ cd ginza-examples
-$ poetry install
-```
-
-実行
-```
-$ python examples/***.py
-```
+どちらの環境でもセットアップに `poetry install` が必要です。大きめの辞書をダウンロードするため5分程度かかる可能性があります。
 
 ### 形態素解析
 
@@ -112,6 +105,12 @@ for token in doc:
 print(attrs_list)
 ```
 
+**実行**
+
+```
+$ python examples/token_information.py
+```
+
 **結果（整形済み）**
 
 | i | text | lemma_ | reading_form | pos_ | tag_ | inflection | ent_type_ |
@@ -124,6 +123,12 @@ print(attrs_list)
 | 5 | ください | くださる | クダサイ | AUX | 動詞-非自立可能 | 五段-ラ行,命令形 |  |
 | 6 | 。 | 。 | 。 | PUNCT | 補助記号-句点 |  |  |
 
+
+なお、テキストを指定して実行する場合は次のようにしてください。
+
+```
+$ python examples/token_information.py 吾輩は猫である。名前はまだ無い。
+```
 
 <details>
 <summary>説明を開く</summary>
@@ -163,10 +168,22 @@ sentences = [s.text for s in doc.sents]
 print(sentences)
 ```
 
+**実行**
+
+```
+$ python examples/split_text.py
+```
+
 **結果**
 
 ```
 ['はい、そうです。', 'ありがとうございます', 'よろしくお願いします。']
+```
+
+なお、テキストを指定して実行する場合は次のようにしてください。
+
+```
+$ python examples/split_text.py 吾輩は猫である。名前はまだ無い。
 ```
 
 <details>
