@@ -1,7 +1,7 @@
 #  PYTHONPATH=./ python dev/update_readme.py
 
 from pathlib import Path
-from dev.util import table_md
+from dev.util import table_md, get_function_source
 from examples.token_information import HEADER, TEXT, tokenize
 
 rep = {
@@ -15,6 +15,15 @@ rep = {
 
 def update_replacements() -> None:
     print('token_information - tokenize')
+
+    token_information_src = '\n'.join([
+        'import spacy',
+        'import ginza\n',
+        "nlp = spacy.load('ja_ginza')\n",
+        get_function_source(tokenize).replace('nlp(text)', f"nlp('{TEXT}')"),
+        '\nprint(attrs_list)'
+    ])
+    rep['$token_information_src'] = token_information_src
     rep['$token_information_result'] = table_md(HEADER, tokenize(TEXT))
 
 

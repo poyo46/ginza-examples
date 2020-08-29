@@ -81,12 +81,17 @@ $ poetry install
 
 実行
 ```
-$ python ginza-examples/***.py
+$ python examples/***.py
 ```
 
 ### 形態素解析
 
-結果
+ソースコード
+```python
+$token_information_src
+```
+
+結果（整形済み）
 
 $token_information_result
 

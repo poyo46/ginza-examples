@@ -30,7 +30,6 @@ def tokenize(text: str) -> List[List[str]]:
       http://liat-aip.sakura.ne.jp/ene/ene8/definition_jp/html/enedetail.html
     """
     doc = nlp(text)
-
     attrs_list = []
     for token in doc:
         token_attrs = [
@@ -44,7 +43,6 @@ def tokenize(text: str) -> List[List[str]]:
             token.ent_type_  # 固有表現
         ]
         attrs_list.append([str(a) for a in token_attrs])
-
     return attrs_list
 
 

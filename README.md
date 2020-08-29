@@ -81,12 +81,37 @@ $ poetry install
 
 実行
 ```
-$ python ginza-examples/***.py
+$ python examples/***.py
 ```
 
 ### 形態素解析
 
-結果
+ソースコード
+```python
+import spacy
+import ginza
+
+nlp = spacy.load('ja_ginza')
+
+doc = nlp('田中部長に伝えてください。')
+attrs_list = []
+for token in doc:
+    token_attrs = [
+        token.i,  # トークン番号
+        token.text,  # テキスト
+        token.lemma_,  # 基本形
+        ginza.reading_form(token),  # 読みカナ
+        token.pos_,  # 品詞
+        token.tag_,  # 品詞詳細
+        ginza.inflection(token),  # 活用情報
+        token.ent_type_  # 固有表現
+    ]
+    attrs_list.append([str(a) for a in token_attrs])
+
+print(attrs_list)
+```
+
+結果（整形済み）
 
 | i | text | lemma_ | reading_form | pos_ | tag_ | inflection | ent_type_ |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
