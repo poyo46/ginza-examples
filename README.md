@@ -128,6 +128,7 @@ print(attrs_list)
 <details>
 <summary>説明を開く</summary>
 <div>
+
 日本語の文を単語ごとに分け、各単語の解析結果を表示しています。
 
 `Token.pos_` は [Universal Part-of-speech Tags](https://spacy.io/api/annotation#pos-universal) と呼ばれるもので、言語に依存せず全世界的に単語の品詞を表そうというものです（Part-of-speech = 品詞）。
@@ -135,7 +136,8 @@ print(attrs_list)
 `Token.ent_type_` は固有表現と呼ばれるもので、例えば人名には `Person` が、料理名には `Dish` が割り当てられます。
 詳細な定義については [こちら](http://liat-aip.sakura.ne.jp/ene/ene8/definition_jp/html/enedetail.html) をご覧ください。
 
-Tokenの他の属性については [spaCy API doc](https://spacy.io/api/token#attributes) をご覧ください。
+`Token` の他の属性については [spaCy API doc](https://spacy.io/api/token#attributes) をご覧ください。
+
 </div>
 </details>
 
@@ -146,7 +148,7 @@ Tokenの他の属性については [spaCy API doc](https://spacy.io/api/token#a
 * 文中に含まれる食べ物を抽出してカウントする。
 * 文中の個人情報をマスキングする。
 
-### 文章を文のリストに分ける
+### テキストを文のリストに分割する
 
 **ソースコード**
 
@@ -170,7 +172,9 @@ print(sentences)
 <details>
 <summary>説明を開く</summary>
 <div>
-[spaCy](https://spacy.io/) の [Doc.sents](https://spacy.io/api/doc#sents) を利用しています。
+
+[spaCy](https://spacy.io/) の [Doc.sents](https://spacy.io/api/doc#sents) を利用してテキストを文のリストに変換しています。
+
 </div>
 </details>
 
