@@ -3,7 +3,7 @@
 ## この記事について
 
 本記事は、日本語の自然言語処理ライブラリである [GiNZA](https://github.com/megagonlabs/ginza) の紹介記事です。
-[Qiita](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971) と [GitHub](https://github.com/poyo46/ginza-examples) の二箇所に同じものを公開しています。
+[Qiitaの記事](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971) と [GitHubのリポジトリ](https://github.com/poyo46/ginza-examples) の二箇所に同じものを公開しています。
 
 <details>
 <summary>記事を書いた経緯</summary>
@@ -34,14 +34,14 @@
 ![GiNZAのロゴ](https://raw.githubusercontent.com/megagonlabs/ginza/static/docs/images/GiNZA_logo_4c_y.png)
 
 [GiNZA](https://github.com/megagonlabs/ginza) は **日本語の** 自然言語処理ライブラリです。
-もともと [spaCy](https://spacy.io/) という自然言語処理のフレームワークがあり、英語など主要な言語に対応していました。 [GiNZA](https://github.com/megagonlabs/ginza) は [spaCy](https://spacy.io/) の日本語対応版です。
+もともと [spaCy](https://spacy.io/) という自然言語処理のフレームワークがあり、英語など主要な言語に対応していました。 [GiNZA](https://github.com/megagonlabs/ginza) は言わば [spaCy](https://spacy.io/) の日本語対応版です。
 詳細については [GiNZAの公開ページ](https://megagonlabs.github.io/ginza/) をご覧ください。
 
 <details>
 <summary>GiNZAを選ぶ理由</summary>
 <div>
 
-日本語の形態素解析器として有名なものに [MeCab](https://taku910.github.io/mecab/) があります（形態素解析って何？という方は [Web茶まめ ©国立国語研究所](https://chamame.ninjal.ac.jp/) にて実行してみてください）。[GiNZA](https://github.com/megagonlabs/ginza) も同様に日本語の文を分かち書きすることができます。単に日本語を分かち書きしたいだけなら [MeCab](https://taku910.github.io/mecab/) の方が圧倒的に速いです。
+日本語の形態素解析器として有名なものに [MeCab](https://taku910.github.io/mecab/) があります（形態素解析って何？という方は [Web茶まめ ©国立国語研究所](https://chamame.ninjal.ac.jp/) にて実行してみてください）。 [GiNZA](https://github.com/megagonlabs/ginza) も同様に日本語の文を分かち書きすることができます。単に日本語を分かち書きしたいだけなら [MeCab](https://taku910.github.io/mecab/) の方が圧倒的に速いです。
 それでも [GiNZA](https://github.com/megagonlabs/ginza) には次のメリットがあると思います。
 
 * 簡単に導入できる
@@ -64,7 +64,7 @@
 TODO: 動作確認環境とその日付
 
 Pythonに親しみのない方や手っ取り早く動作環境がほしい方向けにオンラインの実行環境を用意しています。
-本格的に動作検証したい方は [GiNZA examples](https://github.com/poyo46/ginza-examples) をcloneしてご利用ください。
+本格的に動作検証したい方は [GitHubのリポジトリ](https://github.com/poyo46/ginza-examples) をcloneしてご利用ください。
 
 **オンラインで動かす（環境構築不要）**
 TODO:
@@ -86,15 +86,28 @@ $ python ginza-examples/***.py
 
 ### 形態素解析
 
+結果
+
+| i | text | lemma_ | reading_form | pos_ | tag_ | inflection | ent_type_ |
+| :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
+| 0 | 田中 | 田中 | タナカ | PROPN | 名詞-固有名詞-人名-姓 |  | Person |
+| 1 | 部長 | 部長 | ブチョウ | NOUN | 名詞-普通名詞-一般 |  | Position_Vocation |
+| 2 | に | に | ニ | ADP | 助詞-格助詞 |  |  |
+| 3 | 伝え | 伝える | ツタエ | VERB | 動詞-一般 | 下一段-ア行,連用形-一般 |  |
+| 4 | て | て | テ | SCONJ | 助詞-接続助詞 |  |  |
+| 5 | ください | くださる | クダサイ | AUX | 動詞-非自立可能 | 五段-ラ行,命令形 |  |
+| 6 | 。 | 。 | 。 | PUNCT | 補助記号-句点 |  |  |
+
+
 ### 文章を文のリストに分ける
 
 ## ライセンス
 
 ### GiNZA
-[GiNZA](https://github.com/megagonlabs/ginza) そのものは [MIT License](https://github.com/megagonlabs/ginza/blob/develop/LICENSE) で利用できます。詳しくは [GitHubのリポジトリ](https://github.com/megagonlabs/ginza#license) をご覧ください。
+[GiNZA](https://github.com/megagonlabs/ginza) そのものは [MIT License](https://github.com/megagonlabs/ginza/blob/develop/LICENSE) で利用できます。詳しくは [ライセンス条項](https://github.com/megagonlabs/ginza#license) をご覧ください。
 
 ### GiNZA examples
-[Qiita記事](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971) および [GiNZA examples](https://github.com/poyo46/ginza-examples) も同様に [MIT License](https://github.com/poyo46/ginza-examples/blob/master/LICENSE) で利用できます。
+[Qiitaの記事](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971) および [GitHubのリポジトリ](https://github.com/poyo46/ginza-examples) も同様に [MIT License](https://github.com/poyo46/ginza-examples/blob/master/LICENSE) で利用できます。
 
 ## 参考文献
 * [株式会社リクルートの発表](https://www.recruit.co.jp/newsroom/2019/0402_18331.html)
@@ -103,6 +116,6 @@ $ python ginza-examples/***.py
 * [MeCab](https://taku910.github.io/mecab/)
 
 ## ご意見・ご要望など
-ご意見・ご要望などは随時受け付けています。 [Qiita記事](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971) へコメント、または [GitHubのIssues](https://github.com/poyo46/ginza-examples/issues) へ投稿をお願いします。
+ご意見・ご要望などは随時受け付けています。 [Qiitaの記事](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971) へコメント、または [GitHubのIssues](https://github.com/poyo46/ginza-examples/issues) へ投稿をお願いします。
 
 

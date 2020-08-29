@@ -56,11 +56,11 @@ def print_table(header: List[str], rows: List[List[str]]) -> None:
     console.print(table)
 
 
-sample_text = '田中部長に伝えてください。'
+HEADER = [
+    'i', 'text', 'lemma_', 'reading_form', 'pos_', 'tag_', 'inflection',
+    'ent_type_'
+]
+TEXT = '田中部長に伝えてください。'
 
 if __name__ == '__main__':
-    print_table(
-        ['i', 'text', 'lemma_', 'reading_form', 'pos_', 'tag_', 'inflection',
-         'ent_type_'],
-        tokenize(sample_text)
-    )
+    print_table(HEADER, tokenize(TEXT))
