@@ -56,7 +56,7 @@ def update_replacements() -> None:
 
 
 def readme_template() -> str:
-    file_path = Path(__file__).with_name('README.md.tpl')
+    file_path = Path(__file__).parent / 'data' / 'README.md.tpl'
     with open(file_path, mode='rt') as f:
         return f.read()
 

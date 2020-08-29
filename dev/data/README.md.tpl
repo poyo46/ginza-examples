@@ -97,7 +97,7 @@ $token_information_src
 $token_information_res
 
 <details>
-<summary>説明</summary>
+<summary>説明を開く</summary>
 <div>
 日本語の文を単語ごとに分け、各単語の解析結果を表示しています。
 
@@ -132,7 +132,7 @@ $split_text_res
 ```
 
 <details>
-<summary>説明</summary>
+<summary>説明を開く</summary>
 <div>
 $spacy の [Doc.sents](https://spacy.io/api/doc#sents) を利用しています。
 </div>
