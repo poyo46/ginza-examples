@@ -24,4 +24,5 @@ jobs:
           poetry install
       - name: Test with pytest
         run: |
+          echo "::set-env name=PYTHONIOENCODING::utf-8"
           poetry run pytest -v -s tests/examples/
