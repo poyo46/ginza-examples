@@ -1,4 +1,4 @@
-from typing import List
+from typing import Optional, List
 import inspect
 
 
@@ -30,7 +30,21 @@ def get_function_source(f):
     return ''.join(lines).strip('\n')
 
 
-if __name__ == '__main__':
-    from examples.token_information import tokenize
+def basic_src(f: object, text: str,
+              imports: Optional[List[str]] = None) -> str:
+    if imports is None:
+        imports = []
+    imports.insert(0, 'import spacy')
+    import_block = '\n'.join(imports) + '\n'
+    blocks = [
+        import_block,
+        "nlp = spacy.load('ja_ginza')\n",
+        get_function_source(f).replace('nlp(text)', f"nlp('{text}')")
+    ]
+    return '\n'.join(blocks) + '\n\n'
 
-    print(get_function_source(tokenize))
+
+if __name__ == '__main__':
+    from examples.token_information import tokenize, TEXT
+
+    print(basic_src(tokenize, TEXT, ['import ginza']))

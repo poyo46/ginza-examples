@@ -196,6 +196,43 @@ $ python examples/split_text.py 吾輩は猫である。名前はまだ無い。
 </div>
 </details>
 
+### 依存構造解析・可視化
+
+**ソースコード**
+
+```python
+import spacy
+from spacy import displacy
+
+nlp = spacy.load('ja_ginza')
+
+doc = nlp('あのラーメン屋にはよく行く。')
+displacy.serve(doc, style='dep')
+```
+
+**実行**
+
+```
+$ python examples/displacy.py
+```
+
+**結果**
+
+```
+Using the 'dep' visualizer
+Serving on http://0.0.0.0:5000 ...
+```
+
+と表示されるので、ブラウザで http://localhost:5000 を開いてください。
+
+![displacy](https://raw.githubusercontent.com/poyo46/ginza-examples/master/examples/displacy.svg)
+
+なお、テキストを指定して実行する場合は次のようにしてください。
+
+```
+$ python examples/displacy.py 吾輩は猫である。名前はまだ無い。
+```
+
 ## ライセンス
 
 ### GiNZA

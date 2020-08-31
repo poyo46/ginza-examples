@@ -160,6 +160,37 @@ $spacy の [Doc.sents](https://spacy.io/api/doc#sents) を利用してテキス�
 </div>
 </details>
 
+### 依存構造解析・可視化
+
+**ソースコード**
+
+```python
+$displacy_src
+```
+
+**実行**
+
+```
+$ python examples/displacy.py
+```
+
+**結果**
+
+```
+Using the 'dep' visualizer
+Serving on http://0.0.0.0:5000 ...
+```
+
+と表示されるので、ブラウザで http://localhost:5000 を開いてください。
+
+$displacy_res
+
+なお、テキストを指定して実行する場合は次のようにしてください。
+
+```
+$ python examples/displacy.py 吾輩は猫である。名前はまだ無い。
+```
+
 ## ライセンス
 
 ### GiNZA

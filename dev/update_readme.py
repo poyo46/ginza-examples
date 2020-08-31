@@ -3,27 +3,8 @@
 from typing import Optional, Dict
 from pathlib import Path
 import yaml
-from dev.util import table_md, get_function_source
-from examples import token_information, split_text
-
-
-def basic_src(f, text, import_ginza: Optional[bool] = None) -> str:
-    if import_ginza is None:
-        import_ginza = False
-    if import_ginza:
-        blocks = [
-            'import spacy',
-            'import ginza\n',
-            "nlp = spacy.load('ja_ginza')\n",
-            get_function_source(f).replace('nlp(text)', f"nlp('{text}')")
-        ]
-    else:
-        blocks = [
-            'import spacy\n',
-            "nlp = spacy.load('ja_ginza')\n",
-            get_function_source(f).replace('nlp(text)', f"nlp('{text}')")
-        ]
-    return '\n'.join(blocks) + '\n\n'
+from dev.util import table_md, basic_src
+from examples import token_information, split_text, displacy
 
 
 def rep_def() -> Dict[str, str]:
@@ -36,24 +17,31 @@ def rep_def() -> Dict[str, str]:
 
 def updated_rep(dic) -> Dict:
     print('token_information - tokenize')
-    token_information_src = basic_src(
-        token_information.tokenize, token_information.TEXT, import_ginza=True
+    dic['$token_information_src'] = basic_src(
+        token_information.tokenize, token_information.TEXT, ['import ginza']
     ) + 'print(attrs_list)'
-    dic['$token_information_src'] = token_information_src
     dic['$token_information_res'] = table_md(
         token_information.HEADER,
         token_information.tokenize(token_information.TEXT)
     )
 
     print('split_text - split_text_into_list_of_sentences')
-    split_text_src = basic_src(
+    dic['$split_text_src'] = basic_src(
         split_text.split_text_into_list_of_sentences,
         split_text.TEXT
     ) + 'print(sentences)'
-    dic['$split_text_src'] = split_text_src
     dic['$split_text_res'] = split_text.split_text_into_list_of_sentences(
         split_text.TEXT
     ).__str__()
+
+    print('displacy - visualize')
+    dic['$displacy_src'] = basic_src(
+        displacy.visualize,
+        displacy.TEXT,
+        ['from spacy import displacy']
+    ).strip('\n')
+    displacy_save_to = Path(__file__).parents[1] / 'examples' / 'displacy.svg'
+    displacy.save_as_image(displacy.TEXT, displacy_save_to)
     return dic
 
 
