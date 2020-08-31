@@ -22,5 +22,8 @@ def extracted_urls() -> List[str]:
 
 def test_url():
     for url in extracted_urls():
+        if 'localhost' in url or '0.0.0.0' in url:
+            continue
+        print(url)
         response = requests.get(url)
         assert 200 <= response.status_code < 400, url

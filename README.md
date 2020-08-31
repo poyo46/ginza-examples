@@ -109,7 +109,7 @@ print(attrs_list)
 **実行**
 
 ```
-$ python examples/token_information.py
+$ python examples/token_information.py [テキストを指定する場合はここに書いてください]
 ```
 
 **結果（整形済み）**
@@ -124,12 +124,6 @@ $ python examples/token_information.py
 | 5 | ください | くださる | クダサイ | AUX | 動詞-非自立可能 | 五段-ラ行,命令形 |  |
 | 6 | 。 | 。 | 。 | PUNCT | 補助記号-句点 |  |  |
 
-
-なお、テキストを指定して実行する場合は次のようにしてください。
-
-```
-$ python examples/token_information.py 吾輩は猫である。名前はまだ無い。
-```
 
 <details>
 <summary>説明を開く</summary>
@@ -172,19 +166,13 @@ print(sentences)
 **実行**
 
 ```
-$ python examples/split_text.py
+$ python examples/split_text.py [テキストを指定する場合はここに書いてください]
 ```
 
 **結果**
 
 ```
 ['はい、そうです。', 'ありがとうございます', 'よろしくお願いします。']
-```
-
-なお、テキストを指定して実行する場合は次のようにしてください。
-
-```
-$ python examples/split_text.py 吾輩は猫である。名前はまだ無い。
 ```
 
 <details>
@@ -213,7 +201,7 @@ displacy.serve(doc, style='dep')
 **実行**
 
 ```
-$ python examples/displacy.py
+$ python examples/displacy.py [テキストを指定する場合はここに書いてください]
 ```
 
 **結果**
@@ -226,12 +214,6 @@ Serving on http://0.0.0.0:5000 ...
 と表示されるので、ブラウザで http://localhost:5000 を開いてください。
 
 ![displacy](https://raw.githubusercontent.com/poyo46/ginza-examples/master/examples/displacy.svg)
-
-なお、テキストを指定して実行する場合は次のようにしてください。
-
-```
-$ python examples/displacy.py 吾輩は猫である。名前はまだ無い。
-```
 
 ## ライセンス
 
