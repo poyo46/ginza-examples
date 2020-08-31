@@ -171,7 +171,34 @@ Serving on http://0.0.0.0:5000 ...
 
 と表示されるので、ブラウザで http://localhost:5000 を開いてください。
 
-$displacy_res
+![displacy](https://raw.githubusercontent.com/poyo46/ginza-examples/master/examples/displacy.svg)
+
+### 文章要約
+
+LexRankアルゴリズムを用いて抽出型要約を実行します。
+抽出型要約とは、元の文から重要な文を（無加工で）抽出するものです。
+サンプル文として [『走れメロス』](https://github.com/poyo46/ginza-examples/blob/master/examples/data/run_melos.txt) を用意しました。
+次のソースコード内では `/path/to/run_melos.txt` で表されるパスに保存されている前提です。
+
+**ソースコード**
+
+```python
+$lexrank_summary_src
+```
+
+**実行**
+
+```
+$ python examples/lexrank_summary.py [読み込むファイルを指定する場合はここにパスを書いてください]
+```
+
+**結果**
+
+重要度の高い上位 $lexrank_summary_n 文
+
+```python
+$lexrank_summary_res
+```
 
 ## ライセンス
 

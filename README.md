@@ -215,6 +215,97 @@ Serving on http://0.0.0.0:5000 ...
 
 ![displacy](https://raw.githubusercontent.com/poyo46/ginza-examples/master/examples/displacy.svg)
 
+### 文章要約
+
+LexRankアルゴリズムを用いて抽出型要約を実行します。
+抽出型要約とは、元の文から重要な文を（無加工で）抽出するものです。
+サンプル文として [『走れメロス』](https://github.com/poyo46/ginza-examples/blob/master/examples/data/run_melos.txt) を用意しました。
+次のソースコード内では `/path/to/run_melos.txt` で表されるパスに保存されている前提です。
+
+**ソースコード**
+
+```python
+import spacy
+from sumy.summarizers.lex_rank import LexRankSummarizer
+
+nlp = spacy.load('ja_ginza')
+
+with open('/path/to/run_melos.txt', mode='rt') as f:
+    text = f.read()
+
+doc = nlp(text)
+
+# 文のリストと単語のリストをつくる
+sentences = []
+corpus = []
+for sent in doc.sents:
+    sentences.append(sent.text)
+    tokens = []
+    for token in sent:
+        # 文に含まれる単語のうち, 名詞・副詞・形容詞・動詞に限定する
+        if token.pos_ in ('NOUN', 'ADV', 'ADJ', 'VERB'):
+            # ぶれをなくすため, 単語の見出し語 Token.lemma_ を使う
+            tokens.append(token.lemma_)
+    corpus.append(tokens)
+# sentences = [文0, 文1, ...]
+# corpus = [[文0の単語0, 文0の単語1, ...], [文1の単語0, 文1の単語1, ...], ...]
+
+# sumyライブラリによるLexRankスコアリング
+lxr = LexRankSummarizer()
+tf_metrics = lxr._compute_tf(corpus)
+idf_metrics = lxr._compute_idf(corpus)
+matrix = lxr._create_matrix(corpus, lxr.threshold, tf_metrics, idf_metrics)
+scores = lxr.power_method(matrix, lxr.epsilon)
+# scores = [文0の重要度, 文1の重要度, ...]
+
+assert len(sentences) == len(scores)
+
+# scoresのインデックスリスト
+indices = range(len(scores))
+
+# スコアの大きい順に並べ替えたリスト
+sorted_indices = sorted(indices, key=lambda i: scores[i], reverse=True)
+
+# スコアの大きい順から15個抽出したリスト
+extracted_indices = sorted_indices[:15]
+
+# インデックスの並び順をもとに戻す
+extracted_indices.sort()
+
+# 抽出されたインデックスに対応する文のリスト
+extracted_sentences = [sentences[i] for i in extracted_indices]
+
+print('\n'.join(extracted_sentences))
+```
+
+**実行**
+
+```
+$ python examples/lexrank_summary.py [読み込むファイルを指定する場合はここにパスを書いてください]
+```
+
+**結果**
+
+重要度の高い上位 15 文
+
+```python
+人を、信ずる事が出来ぬ、というのです。
+三日のうちに、私は村で結婚式を挙げさせ、必ず、ここへ帰って来ます。
+そうして身代りの男を、三日目に殺してやるのも気味がいい。
+ものも言いたくなくなった。
+そうして、少し事情があるから、結婚式を明日にしてくれ、と頼んだ。
+あれが沈んでしまわぬうちに、王城に行き着くことが出来なかったら、あの佳い友達が、私のために死ぬのです。
+何をするのだ。
+けれども、今になってみると、私は王の言うままになっている。
+王は、ひとり合点して私を笑い、そうして事も無く私を放免するだろう。
+私を、待っている人があるのだ。
+死んでお詫び、などと気のいい事は言って居られぬ。
+メロス。
+その人を殺してはならぬ。
+メロスが帰って来た。
+メロスだ。
+```
+
 ## ライセンス
 
 ### GiNZA
