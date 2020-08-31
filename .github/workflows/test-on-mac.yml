@@ -1,4 +1,4 @@
-name: TestOther
+name: TestOnMac
 
 on:
   schedule:
@@ -8,8 +8,8 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [ ubuntu-latest ]
-        python-version: [ 3.8 ]
+        platform: [ macos-latest ]
+        python-version: [ 3.6, 3.7, 3.8 ]
     runs-on: ${{ matrix.platform }}
     steps:
       - uses: actions/checkout@v2
@@ -24,4 +24,4 @@ jobs:
           poetry install
       - name: Test with pytest
         run: |
-          poetry run pytest -v -s --ignore tests/examples/
+          poetry run pytest -v -s tests/examples/

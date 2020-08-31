@@ -66,9 +66,9 @@
 
 **動作検証結果**
 
-[![TestExamples](https://github.com/poyo46/ginza-examples/workflows/TestExamples/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestExamples)
-[![TestOther](https://github.com/poyo46/ginza-examples/workflows/TestOther/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestOther)
-（2020/08/30 05:13:14 更新）
+[![TestOnUbuntu](https://github.com/poyo46/ginza-examples/workflows/TestOnUbuntu/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestOnUbuntu) [![TestOnMac](https://github.com/poyo46/ginza-examples/workflows/TestOnMac/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestOnMac) [![TestOnWindows](https://github.com/poyo46/ginza-examples/workflows/TestOnWindows/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestOnWindows)
+
+[![TestOther](https://github.com/poyo46/ginza-examples/workflows/TestOther/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestOther) （リンク切れのチェックなど）
 
 **動作環境構築**
 
