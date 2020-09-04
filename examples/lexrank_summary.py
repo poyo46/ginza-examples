@@ -22,7 +22,7 @@ def preprocess(text: str) -> str:
 
     Returns
     -------
-    str :
+    str
         前処理が実施されたtext
     """
     text = re.sub('[　「」『』【】\r\n]', '', text)
@@ -43,10 +43,10 @@ def lexrank_scoring(text: str) -> Tuple[List[str], numpy.ndarray]:
 
     Returns
     -------
-    sentences : List[str]
+    List[str]
         text を文のリストに分解したもの。
-    scores : numpy.ndarray
-        sentences に重要度のスコアをつけたもの。
+    numpy.ndarray
+        文のリストに対応する重要度のリスト。
     """
     doc = nlp(text)
 
@@ -108,26 +108,27 @@ def extract(sentences: List[str], scores: numpy.ndarray, n: int) -> List[str]:
     # インデックスの並び順をもとに戻す
     extracted_indices.sort()
 
-    # 抽出されたインデックスに対応する文のリスト
-    extracted_sentences = [sentences[i] for i in extracted_indices]
-
-    return extracted_sentences
+    # 抽出されたインデックスに対応する文のリストを返す
+    return [sentences[i] for i in extracted_indices]
 
 
-def main(file_path=None) -> List[str]:
-    if file_path is None:
-        file_path = Path(__file__).parent / 'data' / 'run_melos.txt'
-    with open(file_path, mode='rt', encoding='utf-8') as f:
+def main(path, n) -> List[str]:
+    with open(path, mode='rt', encoding='utf-8') as f:
         text = f.read()
-
     text = preprocess(text)
     sentences, scores = lexrank_scoring(text)
-    extracted_sentences = extract(sentences, scores, 15)
-    return extracted_sentences
+    return extract(sentences, scores, n)
 
+
+EXAMPLE_PATH = Path(__file__).with_name('data') / 'run_melos.txt'
+N = 15
+EXAMPLE_SCRIPT = f'python examples/lexrank_summary.py examples/data/run_melos.txt {N}'
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        print(main(sys.argv[1]))
+    if len(sys.argv) > 2:
+        input_path = sys.argv[1]
+        input_n = int(sys.argv[2])
+        extracted_sentences = main(input_path, input_n)
+        print('\n'.join(extracted_sentences))
     else:
-        print(main())
+        print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)

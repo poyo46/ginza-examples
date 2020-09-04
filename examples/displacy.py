@@ -1,5 +1,5 @@
 import sys
-from typing import Optional
+from pathlib import Path
 import spacy
 from spacy import displacy
 
@@ -25,7 +25,7 @@ def visualize(text: str) -> None:
 
 def save_as_image(text: str, path) -> None:
     """
-    日本語文の文法的構造を解析し、画像として保存する。
+    日本語文の文法的構造を解析し、結果を画像として保存する。
 
     Parameters
     ----------
@@ -44,17 +44,14 @@ def save_as_image(text: str, path) -> None:
         f.write(svg)
 
 
-TEXT = 'あのラーメン屋にはよく行く。'
-
-
-def main(text: Optional[str] = None):
-    if text is None:
-        text = TEXT
-    visualize(text)
-
+EXAMPLE_TEXT = 'あのラーメン屋にはよく行く。'
+EXAMPLE_SCRIPT = f'python examples/displacy.py {EXAMPLE_TEXT}'
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        main(sys.argv[1])
+        input_text = sys.argv[1]
+        save_to = Path(__file__).with_name('displacy.svg')
+        save_as_image(input_text, save_to)
+        visualize(input_text)
     else:
-        main()
+        print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)

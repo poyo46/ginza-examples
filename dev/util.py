@@ -1,5 +1,4 @@
 from typing import Optional, List
-from pathlib import Path
 import inspect
 import requests
 from bs4 import BeautifulSoup
@@ -15,39 +14,40 @@ def table_md(header: List[str], rows: List[List[str]]) -> str:
     return head_md + hr_md + body_md
 
 
-def get_function_source(f):
-    try:
-        lines_to_skip = len(f.__doc__.split('\n'))
-    except AttributeError:
-        lines_to_skip = 0
-
-    all_lines = inspect.getsourcelines(f)[0]
-    body_lines = all_lines[lines_to_skip + 1:]
-    lines = []
-    for line in body_lines:
-        if 'return ' in line:
-            continue
-        if line.startswith('    '):
-            lines.append(line[4:])
-        else:
-            lines.append(line)
-    return ''.join(lines).strip('\n')
-
-
-def basic_src(f: object, text: Optional[str] = None,
-              imports: Optional[List[str]] = None) -> str:
-    if imports is None:
-        imports = []
-    imports.insert(0, 'import spacy')
-    import_block = '\n'.join(imports) + '\n'
-    blocks = [
-        import_block,
-        "nlp = spacy.load('ja_ginza')\n",
-        get_function_source(f)
+def template(module,
+             result_console: Optional[str] = None,
+             result_markdown: Optional[str] = None,
+             result_img_path: Optional[str] = None) -> str:
+    lines = [
+        '**ソースコード**',
+        '',
+        f'```python:{module.__name__.replace(".", "/")}.py',
+        inspect.getsource(module).strip('\n'),
+        '```',
+        '',
+        '**実行**',
+        '',
+        '```',
+        '$ ' + module.EXAMPLE_SCRIPT,
+        '```',
+        '',
+        '**結果**',
+        ''
     ]
-    if text is not None:
-        blocks[-1] = blocks[-1].replace('nlp(text)', f"nlp('{text}')")
-    return '\n'.join(blocks) + '\n\n'
+    if result_console is not None:
+        lines.append('```')
+        lines.append(result_console)
+        lines.append('```')
+        lines.append('')
+    if result_markdown is not None:
+        lines.append(result_markdown)
+        lines.append('')
+    if result_img_path is not None:
+        raw = 'https://raw.githubusercontent.com/poyo46/ginza-examples/master/'
+        lines.append(f'![結果の画像]({raw + result_img_path})')
+        lines.append('')
+    lines = lines[:-1]
+    return '\n'.join(lines)
 
 
 def download_aozora(url: str, path) -> None:
@@ -83,6 +83,4 @@ def download_aozora(url: str, path) -> None:
 
 
 if __name__ == '__main__':
-    run_meros = 'https://www.aozora.gr.jp/cards/000035/files/1567_14913.html'
-    file_path = Path(__file__).parent / 'data' / 'run_melos.txt'
-    download_aozora(run_meros, file_path)
+    pass

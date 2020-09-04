@@ -3,7 +3,7 @@
 from typing import Dict
 from pathlib import Path
 import yaml
-from dev.util import table_md, basic_src, get_function_source
+from dev.util import table_md, template
 from examples import token_information, split_text, displacy, lexrank_summary
 
 
@@ -17,52 +17,44 @@ def rep_def() -> Dict[str, str]:
 
 def updated_rep(dic) -> Dict:
     print('token_information')
-    dic['$token_information_src'] = basic_src(
-        token_information.tokenize, token_information.TEXT, ['import ginza']
-    ) + 'print(attrs_list)'
-    dic['$token_information_res'] = table_md(
-        token_information.HEADER,
-        token_information.tokenize(token_information.TEXT)
+    dic['{{token_information}}'] = template(
+        token_information,
+        result_markdown=table_md(
+            token_information.ATTRS,
+            token_information.tokenize(token_information.EXAMPLE_TEXT)
+        )
     )
 
     print('split_text')
-    dic['$split_text_src'] = basic_src(
-        split_text.split_text_into_list_of_sentences,
-        split_text.TEXT
-    ) + 'print(sentences)'
-    dic['$split_text_res'] = split_text.split_text_into_list_of_sentences(
-        split_text.TEXT
-    ).__str__()
+    dic['{{split_text}}'] = template(
+        split_text,
+        result_console='\n'.join(
+            split_text.get_sentences(split_text.EXAMPLE_TEXT)
+        )
+    )
 
     print('displacy')
-    dic['$displacy_src'] = basic_src(
-        displacy.visualize,
-        displacy.TEXT,
-        ['from spacy import displacy']
-    ).strip('\n')
-    displacy_save_to = Path(__file__).parents[1] / 'examples' / 'displacy.svg'
-    displacy.save_as_image(displacy.TEXT, displacy_save_to)
+    displacy_img_path = 'examples/displacy.svg'
+    dic['{{displacy_img_path}}'] = displacy_img_path
+    dic['{{displacy}}'] = template(
+        displacy,
+        result_console='\n'.join([
+            "Using the 'dep' visualizer",
+            'Serving on http://0.0.0.0:5000 ...'
+        ]),
+        result_img_path=displacy_img_path
+    )
 
     print('lexrank_summary')
-    lexrank_summary_imports = '\n'.join([
-        'import spacy',
-        'from sumy.summarizers.lex_rank import LexRankSummarizer'
-    ]) + '\n'
-    num_sents = '15'
-    dic['$lexrank_summary_n'] = num_sents
-    lexrank_summary_blocks = [
-        lexrank_summary_imports,
-        "nlp = spacy.load('ja_ginza')\n",
-        "with open('/path/to/run_melos.txt', mode='rt') as f:",
-        "    text = f.read()\n",
-        get_function_source(lexrank_summary.lexrank_scoring),
-        '\n' + get_function_source(
-            lexrank_summary.extract
-        ).replace('[:n]', f'[:{num_sents}]').replace('n個', f'{num_sents}個'),
-        "\nprint('\\n'.join(extracted_sentences))"
-    ]
-    dic['$lexrank_summary_src'] = '\n'.join(lexrank_summary_blocks)
-    dic['$lexrank_summary_res'] = '\n'.join(lexrank_summary.main())
+    dic['{{lexrank_summary_n}}'] = str(lexrank_summary.N)
+    dic['{{lexrank_summary}}'] = template(
+        lexrank_summary,
+        result_console='\n'.join(lexrank_summary.main(
+            lexrank_summary.EXAMPLE_PATH,
+            lexrank_summary.N
+        ))
+    )
+
     return dic
 
 

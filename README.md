@@ -82,37 +82,89 @@ Pythonに親しみのない方や手っ取り早く動作環境がほしい方�
 
 **ソースコード**
 
-```python
+```python:examples/token_information.py
+import sys
+from typing import List
 import spacy
 import ginza
+from rich.console import Console
+from rich.table import Table
 
 nlp = spacy.load('ja_ginza')
 
-doc = nlp('田中部長に伝えてください。')
-attrs_list = []
-for token in doc:
-    token_attrs = [
-        token.i,  # トークン番号
-        token.text,  # テキスト
-        token.lemma_,  # 基本形
-        ginza.reading_form(token),  # 読みカナ
-        token.pos_,  # 品詞
-        token.tag_,  # 品詞詳細
-        ginza.inflection(token),  # 活用情報
-        token.ent_type_  # 固有表現
-    ]
-    attrs_list.append([str(a) for a in token_attrs])
 
-print(attrs_list)
+def tokenize(text: str) -> List[List[str]]:
+    """
+    日本語文を形態素解析する。
+
+    Parameters
+    ----------
+    text : str
+        解析対象の日本語テキスト。
+
+    Returns
+    -------
+    List[List[str]]
+        形態素解析結果。
+
+    Notes
+    -----
+    * Token 属性の詳細については次のリンク先をご覧ください。
+      https://spacy.io/api/token#attributes
+    * Token.lemma_ の値は SudachiPy の Morpheme.dictionary_form() です。
+    * Token.ent_type_ の詳細については次のリンク先をご覧ください。
+      http://liat-aip.sakura.ne.jp/ene/ene8/definition_jp/html/enedetail.html
+    """
+    doc = nlp(text)
+
+    attrs_list = []
+    for token in doc:
+        token_attrs = [
+            token.i,  # トークン番号
+            token.text,  # テキスト
+            token.lemma_,  # 基本形
+            ginza.reading_form(token),  # 読みカナ
+            token.pos_,  # 品詞
+            token.tag_,  # 品詞詳細
+            ginza.inflection(token),  # 活用情報
+            token.ent_type_  # 固有表現
+        ]
+        attrs_list.append([str(a) for a in token_attrs])
+
+    return attrs_list
+
+
+def print_table(header: List[str], rows: List[List[str]]) -> None:
+    console = Console()
+    table = Table(*header)
+    for r in rows:
+        table.add_row(*r)
+    console.print(table)
+
+
+EXAMPLE_TEXT = '田中部長に伝えてください。'
+EXAMPLE_SCRIPT = f'python examples/token_information.py {EXAMPLE_TEXT}'
+
+ATTRS = [
+    'i', 'text', 'lemma_', 'reading_form', 'pos_', 'tag_',
+    'inflection', 'ent_type_'
+]
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_text = sys.argv[1]
+        print_table(ATTRS, tokenize(input_text))
+    else:
+        print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)
 ```
 
 **実行**
 
 ```
-$ python examples/token_information.py [テキストを指定する場合はここに書いてください]
+$ python examples/token_information.py 田中部長に伝えてください。
 ```
 
-**結果（整形済み）**
+**結果**
 
 | i | text | lemma_ | reading_form | pos_ | tag_ | inflection | ent_type_ |
 | :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |
@@ -152,27 +204,60 @@ $ python examples/token_information.py [テキストを指定する場合はこ�
 
 **ソースコード**
 
-```python
+```python:examples/split_text.py
+import sys
+from typing import List, Optional
 import spacy
 
 nlp = spacy.load('ja_ginza')
 
-doc = nlp('はい、そうです。ありがとうございますよろしくお願いします。')
-sentences = [s.text for s in doc.sents]
 
-print(sentences)
+def get_sentences(text: str) -> List[str]:
+    """
+    文のリストに分割したテキストを取得する。
+
+    Parameters
+    ----------
+    text : str
+        分割対象の日本語テキスト。
+
+    Returns
+    -------
+    List[str]
+        文のリスト。結合すると `text` に一致する。
+
+    See Also
+    --------
+    https://spacy.io/api/doc#sents
+    """
+    doc = nlp(text)
+    sentences = [s.text for s in doc.sents]
+    return sentences
+
+
+EXAMPLE_TEXT = 'はい、そうです。ありがとうございますよろしくお願いします。'
+EXAMPLE_SCRIPT = f'python examples/split_text.py {EXAMPLE_TEXT}'
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_text = sys.argv[1]
+        print('\n'.join(get_sentences(input_text)))
+    else:
+        print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)
 ```
 
 **実行**
 
 ```
-$ python examples/split_text.py [テキストを指定する場合はここに書いてください]
+$ python examples/split_text.py はい、そうです。ありがとうございますよろしくお願いします。
 ```
 
 **結果**
 
 ```
-['はい、そうです。', 'ありがとうございます', 'よろしくお願いします。']
+はい、そうです。
+ありがとうございます
+よろしくお願いします。
 ```
 
 <details>
@@ -188,20 +273,70 @@ $ python examples/split_text.py [テキストを指定する場合はここに�
 
 **ソースコード**
 
-```python
+```python:examples/displacy.py
+import sys
+from pathlib import Path
 import spacy
 from spacy import displacy
 
 nlp = spacy.load('ja_ginza')
 
-doc = nlp('あのラーメン屋にはよく行く。')
-displacy.serve(doc, style='dep')
+
+def visualize(text: str) -> None:
+    """
+    日本語文の文法的構造を解析し、可視化する。
+
+    Parameters
+    ----------
+    text : str
+        解析対象の日本語テキスト。
+
+    Notes
+    -----
+    実行後、 ブラウザで http://localhost:5000 を開くと画像が表示される。
+    """
+    doc = nlp(text)
+    displacy.serve(doc, style='dep')
+
+
+def save_as_image(text: str, path) -> None:
+    """
+    日本語文の文法的構造を解析し、結果を画像として保存する。
+
+    Parameters
+    ----------
+    text : str
+        解析対象の日本語テキスト。
+    path
+        保存先のファイルパス。
+
+    Notes
+    -----
+    画像はSVG形式で保存される。
+    """
+    doc = nlp(text)
+    svg = displacy.render(doc, style='dep')
+    with open(path, mode='w') as f:
+        f.write(svg)
+
+
+EXAMPLE_TEXT = 'あのラーメン屋にはよく行く。'
+EXAMPLE_SCRIPT = f'python examples/displacy.py {EXAMPLE_TEXT}'
+
+if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        input_text = sys.argv[1]
+        save_to = Path(__file__).with_name('displacy.svg')
+        save_as_image(input_text, save_to)
+        visualize(input_text)
+    else:
+        print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)
 ```
 
 **実行**
 
 ```
-$ python examples/displacy.py [テキストを指定する場合はここに書いてください]
+$ python examples/displacy.py あのラーメン屋にはよく行く。
 ```
 
 **結果**
@@ -211,84 +346,165 @@ Using the 'dep' visualizer
 Serving on http://0.0.0.0:5000 ...
 ```
 
-と表示されるので、ブラウザで http://localhost:5000 を開いてください。
+![結果の画像](https://raw.githubusercontent.com/poyo46/ginza-examples/master/examples/displacy.svg)
 
-![displacy](https://raw.githubusercontent.com/poyo46/ginza-examples/master/examples/displacy.svg)
+ブラウザで http://localhost:5000 を開くと解析結果が表示されます。
+同時に、サンプルコードでは画像を `examples/displacy.svg` に保存しています。
 
 ### 文章要約
 
 LexRankアルゴリズムを用いて抽出型要約を実行します。
 抽出型要約とは、元の文から重要な文を（無加工で）抽出するものです。
 サンプル文として [『走れメロス』](https://github.com/poyo46/ginza-examples/blob/master/examples/data/run_melos.txt) を用意しました。
-次のソースコード内では `/path/to/run_melos.txt` で表されるパスに保存されている前提です。
 
 **ソースコード**
 
-```python
+```python:examples/lexrank_summary.py
+import sys
+import re
+from typing import Tuple, List
+from pathlib import Path
+import numpy
 import spacy
 from sumy.summarizers.lex_rank import LexRankSummarizer
 
 nlp = spacy.load('ja_ginza')
 
-with open('/path/to/run_melos.txt', mode='rt') as f:
-    text = f.read()
 
-doc = nlp(text)
+def preprocess(text: str) -> str:
+    """
+    要約の前処理を実施する。
+    * 全角スペースや括弧、改行を削除する。
+    * ！？を。に置換する
 
-# 文のリストと単語のリストをつくる
-sentences = []
-corpus = []
-for sent in doc.sents:
-    sentences.append(sent.text)
-    tokens = []
-    for token in sent:
-        # 文に含まれる単語のうち, 名詞・副詞・形容詞・動詞に限定する
-        if token.pos_ in ('NOUN', 'ADV', 'ADJ', 'VERB'):
-            # ぶれをなくすため, 単語の見出し語 Token.lemma_ を使う
-            tokens.append(token.lemma_)
-    corpus.append(tokens)
-# sentences = [文0, 文1, ...]
-# corpus = [[文0の単語0, 文0の単語1, ...], [文1の単語0, 文1の単語1, ...], ...]
+    Parameters
+    ----------
+    text : str
+        日本語のテキスト。
 
-# sumyライブラリによるLexRankスコアリング
-lxr = LexRankSummarizer()
-tf_metrics = lxr._compute_tf(corpus)
-idf_metrics = lxr._compute_idf(corpus)
-matrix = lxr._create_matrix(corpus, lxr.threshold, tf_metrics, idf_metrics)
-scores = lxr.power_method(matrix, lxr.epsilon)
-# scores = [文0の重要度, 文1の重要度, ...]
+    Returns
+    -------
+    str
+        前処理が実施されたtext
+    """
+    text = re.sub('[　「」『』【】\r\n]', '', text)
+    text = re.sub('[！？]', '。', text)
+    text = text.strip()
+    return text
 
-assert len(sentences) == len(scores)
 
-# scoresのインデックスリスト
-indices = range(len(scores))
+def lexrank_scoring(text: str) -> Tuple[List[str], numpy.ndarray]:
+    """
+    LexRankアルゴリズムによって文に点数をつける。
+    この点数は文の重要度とみなすことができる。
 
-# スコアの大きい順に並べ替えたリスト
-sorted_indices = sorted(indices, key=lambda i: scores[i], reverse=True)
+    Parameters
+    ----------
+    text : str
+        分析対象のテキスト。
 
-# スコアの大きい順から15個抽出したリスト
-extracted_indices = sorted_indices[:15]
+    Returns
+    -------
+    List[str]
+        text を文のリストに分解したもの。
+    numpy.ndarray
+        文のリストに対応する重要度のリスト。
+    """
+    doc = nlp(text)
 
-# インデックスの並び順をもとに戻す
-extracted_indices.sort()
+    # 文のリストと単語のリストをつくる
+    sentences = []
+    corpus = []
+    for sent in doc.sents:
+        sentences.append(sent.text)
+        tokens = []
+        for token in sent:
+            # 文に含まれる単語のうち, 名詞・副詞・形容詞・動詞に限定する
+            if token.pos_ in ('NOUN', 'ADV', 'ADJ', 'VERB'):
+                # ぶれをなくすため, 単語の見出し語 Token.lemma_ を使う
+                tokens.append(token.lemma_)
+        corpus.append(tokens)
+    # sentences = [文0, 文1, ...]
+    # corpus = [[文0の単語0, 文0の単語1, ...], [文1の単語0, 文1の単語1, ...], ...]
 
-# 抽出されたインデックスに対応する文のリスト
-extracted_sentences = [sentences[i] for i in extracted_indices]
+    # sumyライブラリによるLexRankスコアリング
+    lxr = LexRankSummarizer()
+    tf_metrics = lxr._compute_tf(corpus)
+    idf_metrics = lxr._compute_idf(corpus)
+    matrix = lxr._create_matrix(corpus, lxr.threshold, tf_metrics, idf_metrics)
+    scores = lxr.power_method(matrix, lxr.epsilon)
+    # scores = [文0の重要度, 文1の重要度, ...]
 
-print('\n'.join(extracted_sentences))
+    return sentences, scores
+
+
+def extract(sentences: List[str], scores: numpy.ndarray, n: int) -> List[str]:
+    """
+    スコアの高い順にn個の文を抽出する。
+
+    Parameters
+    ----------
+    sentences : List[str]
+        文のリスト。
+    scores : numpy.ndarray
+        スコアのリスト。
+    n : int
+        抽出する文の数。
+
+    Returns
+    -------
+    List[str]
+        sentencesから抽出されたn個の文のリスト。
+    """
+    assert len(sentences) == len(scores)
+
+    # scoresのインデックスリスト
+    indices = range(len(scores))
+
+    # スコアの大きい順に並べ替えたリスト
+    sorted_indices = sorted(indices, key=lambda i: scores[i], reverse=True)
+
+    # スコアの大きい順からn個抽出したリスト
+    extracted_indices = sorted_indices[:n]
+
+    # インデックスの並び順をもとに戻す
+    extracted_indices.sort()
+
+    # 抽出されたインデックスに対応する文のリストを返す
+    return [sentences[i] for i in extracted_indices]
+
+
+def main(path, n) -> List[str]:
+    with open(path, mode='rt', encoding='utf-8') as f:
+        text = f.read()
+    text = preprocess(text)
+    sentences, scores = lexrank_scoring(text)
+    return extract(sentences, scores, n)
+
+
+EXAMPLE_PATH = Path(__file__).with_name('data') / 'run_melos.txt'
+N = 15
+EXAMPLE_SCRIPT = f'python examples/lexrank_summary.py examples/data/run_melos.txt {N}'
+
+if __name__ == '__main__':
+    if len(sys.argv) > 2:
+        input_path = sys.argv[1]
+        input_n = int(sys.argv[2])
+        extracted_sentences = main(input_path, input_n)
+        print('\n'.join(extracted_sentences))
+    else:
+        print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)
 ```
 
 **実行**
 
 ```
-$ python examples/lexrank_summary.py [読み込むファイルを指定する場合はここにパスを書いてください]
+$ python examples/lexrank_summary.py examples/data/run_melos.txt 15
 ```
 
 **結果**
 
-重要度の高い上位 15 文
-
-```python
+```
 人を、信ずる事が出来ぬ、というのです。
 三日のうちに、私は村で結婚式を挙げさせ、必ず、ここへ帰って来ます。
 そうして身代りの男を、三日目に殺してやるのも気味がいい。
@@ -305,6 +521,8 @@ $ python examples/lexrank_summary.py [読み込むファイルを指定する場
 メロスが帰って来た。
 メロスだ。
 ```
+
+LexRankアルゴリズムによって抽出された、重要度の高い上位 15 文です。
 
 ## ライセンス
 

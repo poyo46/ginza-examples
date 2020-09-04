@@ -1,5 +1,5 @@
 import sys
-from typing import List, Optional
+from typing import List
 import spacy
 import ginza
 from rich.console import Console
@@ -31,6 +31,7 @@ def tokenize(text: str) -> List[List[str]]:
       http://liat-aip.sakura.ne.jp/ene/ene8/definition_jp/html/enedetail.html
     """
     doc = nlp(text)
+
     attrs_list = []
     for token in doc:
         token_attrs = [
@@ -44,6 +45,7 @@ def tokenize(text: str) -> List[List[str]]:
             token.ent_type_  # 固有表現
         ]
         attrs_list.append([str(a) for a in token_attrs])
+
     return attrs_list
 
 
@@ -55,21 +57,17 @@ def print_table(header: List[str], rows: List[List[str]]) -> None:
     console.print(table)
 
 
-HEADER = [
-    'i', 'text', 'lemma_', 'reading_form', 'pos_', 'tag_', 'inflection',
-    'ent_type_'
+EXAMPLE_TEXT = '田中部長に伝えてください。'
+EXAMPLE_SCRIPT = f'python examples/token_information.py {EXAMPLE_TEXT}'
+
+ATTRS = [
+    'i', 'text', 'lemma_', 'reading_form', 'pos_', 'tag_',
+    'inflection', 'ent_type_'
 ]
-TEXT = '田中部長に伝えてください。'
-
-
-def main(text: Optional[str] = None):
-    if text is None:
-        text = TEXT
-    print_table(HEADER, tokenize(text))
-
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        main(sys.argv[1])
+        input_text = sys.argv[1]
+        print_table(ATTRS, tokenize(input_text))
     else:
-        main()
+        print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)

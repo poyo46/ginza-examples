@@ -5,9 +5,9 @@ import spacy
 nlp = spacy.load('ja_ginza')
 
 
-def split_text_into_list_of_sentences(text: str) -> List[str]:
+def get_sentences(text: str) -> List[str]:
     """
-    日本語のテキストを文のリストに分割する。
+    文のリストに分割したテキストを取得する。
 
     Parameters
     ----------
@@ -28,17 +28,12 @@ def split_text_into_list_of_sentences(text: str) -> List[str]:
     return sentences
 
 
-TEXT = 'はい、そうです。ありがとうございますよろしくお願いします。'
-
-
-def main(text: Optional[str] = None):
-    if text is None:
-        text = TEXT
-    print(split_text_into_list_of_sentences(text))
-
+EXAMPLE_TEXT = 'はい、そうです。ありがとうございますよろしくお願いします。'
+EXAMPLE_SCRIPT = f'python examples/split_text.py {EXAMPLE_TEXT}'
 
 if __name__ == '__main__':
     if len(sys.argv) > 1:
-        main(sys.argv[1])
+        input_text = sys.argv[1]
+        print('\n'.join(get_sentences(input_text)))
     else:
-        main()
+        print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)
