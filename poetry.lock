@@ -97,23 +97,13 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 version = "7.1.2"
 
 [[package]]
-category = "main"
+category = "dev"
 description = "Cross-platform colored terminal text."
+marker = "sys_platform == \"win32\""
 name = "colorama"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 version = "0.4.3"
-
-[[package]]
-category = "main"
-description = "Python parser for the CommonMark Markdown spec"
-name = "commonmark"
-optional = false
-python-versions = "*"
-version = "0.9.1"
-
-[package.extras]
-test = ["flake8 (3.7.8)", "hypothesis (3.55.3)"]
 
 [[package]]
 category = "main"
@@ -143,15 +133,6 @@ version = "0.9.0"
 
 [package.dependencies]
 Cython = "*"
-
-[[package]]
-category = "main"
-description = "A backport of the dataclasses module for Python 3.6"
-marker = "python_version >= \"3.6\" and python_version < \"3.7\""
-name = "dataclasses"
-optional = false
-python-versions = ">=3.6, <3.7"
-version = "0.7"
 
 [[package]]
 category = "main"
@@ -349,14 +330,6 @@ python-versions = "*"
 version = "20.7.3"
 
 [[package]]
-category = "main"
-description = "Pygments is a syntax highlighting package written in Python."
-name = "pygments"
-optional = false
-python-versions = ">=3.5"
-version = "2.6.1"
-
-[[package]]
 category = "dev"
 description = "Python parsing module"
 name = "pyparsing"
@@ -423,27 +396,6 @@ urllib3 = ">=1.21.1,<1.25.0 || >1.25.0,<1.25.1 || >1.25.1,<1.26"
 [package.extras]
 security = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)"]
 socks = ["PySocks (>=1.5.6,<1.5.7 || >1.5.7)", "win-inet-pton"]
-
-[[package]]
-category = "main"
-description = "Render rich text, tables, progress bars, syntax highlighting, markdown and more to the terminal"
-name = "rich"
-optional = false
-python-versions = ">=3.6,<4.0"
-version = "6.0.0"
-
-[package.dependencies]
-colorama = ">=0.4.0,<0.5.0"
-commonmark = ">=0.9.0,<0.10.0"
-pygments = ">=2.6.0,<3.0.0"
-typing-extensions = ">=3.7.4,<4.0.0"
-
-[package.dependencies.dataclasses]
-python = ">=3.6,<3.7"
-version = ">=0.7,<0.8"
-
-[package.extras]
-jupyter = ["ipywidgets (>=7.5.1,<8.0.0)"]
 
 [[package]]
 category = "dev"
@@ -603,14 +555,6 @@ dev = ["py-make (>=0.1.0)", "twine", "argopt", "pydoc-markdown"]
 
 [[package]]
 category = "main"
-description = "Backported and Experimental Type Hints for Python 3.5+"
-name = "typing-extensions"
-optional = false
-python-versions = "*"
-version = "3.7.4.3"
-
-[[package]]
-category = "main"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
 name = "urllib3"
 optional = false
@@ -652,7 +596,7 @@ docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
 testing = ["jaraco.itertools", "func-timeout"]
 
 [metadata]
-content-hash = "28fdc9d4611ef5d34c25a19067ee6302b5f6e4a657761f4763e33ed767e202ae"
+content-hash = "a68ce2d5eefd2342a533717063e24b0357022bd1db42c8afe9a333e06b3d355a"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -709,10 +653,6 @@ click = [
 colorama = [
     {file = "colorama-0.4.3-py2.py3-none-any.whl", hash = "sha256:7d73d2a99753107a36ac6b455ee49046802e59d9d076ef8e47b61499fa29afff"},
     {file = "colorama-0.4.3.tar.gz", hash = "sha256:e96da0d330793e2cb9485e9ddfd918d456036c7149416295932478192f4436a1"},
-]
-commonmark = [
-    {file = "commonmark-0.9.1-py2.py3-none-any.whl", hash = "sha256:da2f38c92590f83de410ba1a3cbceafbc74fee9def35f9251ba9a971d6d66fd9"},
-    {file = "commonmark-0.9.1.tar.gz", hash = "sha256:452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60"},
 ]
 cymem = [
     {file = "cymem-2.0.3-cp35-cp35m-manylinux1_x86_64.whl", hash = "sha256:f4f19af4bca81f11922508a9dcf30ce1d2aee4972af9f81ce8e5331a6f46f5e1"},
@@ -780,10 +720,6 @@ dartsclone = [
     {file = "dartsclone-0.9.0-cp38-cp38-win32.whl", hash = "sha256:bc29f27e654253d29ed242422c45a6e0cc90d291165cd753ca0d34bdee15b180"},
     {file = "dartsclone-0.9.0-cp38-cp38-win_amd64.whl", hash = "sha256:b1e0cbca0e1865b6b5238580a015cf40077fea31548b0a98152bca8c46dea0e6"},
     {file = "dartsclone-0.9.0.tar.gz", hash = "sha256:311bc24cd13ef9a8c3632bb3e5986f97ca53cf28420501b2cc343859b0c8ce26"},
-]
-dataclasses = [
-    {file = "dataclasses-0.7-py3-none-any.whl", hash = "sha256:3459118f7ede7c8bea0fe795bff7c6c2ce287d01dd226202f7c9ebc0610a7836"},
-    {file = "dataclasses-0.7.tar.gz", hash = "sha256:494a6dcae3b8bcf80848eea2ef64c0cc5cd307ffc263e17cdf42f3e5420808e6"},
 ]
 docopt = [
     {file = "docopt-0.6.2.tar.gz", hash = "sha256:49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491"},
@@ -929,10 +865,6 @@ py = [
 pycountry = [
     {file = "pycountry-20.7.3.tar.gz", hash = "sha256:81084a53d3454344c0292deebc20fcd0a1488c136d4900312cbd465cf552cb42"},
 ]
-pygments = [
-    {file = "Pygments-2.6.1-py3-none-any.whl", hash = "sha256:ff7a40b4860b727ab48fad6360eb351cc1b33cbf9b15a0f689ca5353e9463324"},
-    {file = "Pygments-2.6.1.tar.gz", hash = "sha256:647344a061c249a3b74e230c739f434d7ea4d8b1d5f3721bc0f3558049b38f44"},
-]
 pyparsing = [
     {file = "pyparsing-2.4.7-py2.py3-none-any.whl", hash = "sha256:ef9d7589ef3c200abe66653d3f1ab1033c3c419ae9b9bdb1240a85b024efc88b"},
     {file = "pyparsing-2.4.7.tar.gz", hash = "sha256:c203ec8783bf771a155b207279b9bccb8dea02d8f0c9e5f8ead507bc3246ecc1"},
@@ -980,10 +912,6 @@ regex = [
 requests = [
     {file = "requests-2.24.0-py2.py3-none-any.whl", hash = "sha256:fe75cc94a9443b9246fc7049224f75604b113c36acb93f87b80ed42c44cbb898"},
     {file = "requests-2.24.0.tar.gz", hash = "sha256:b3559a131db72c33ee969480840fff4bb6dd111de7dd27c8ee1f820f4f00231b"},
-]
-rich = [
-    {file = "rich-6.0.0-py3-none-any.whl", hash = "sha256:75bb80a52a550424a9f36bfdc57dc2977a2b8d0a1eb3b011df258c017d8ba322"},
-    {file = "rich-6.0.0.tar.gz", hash = "sha256:53c683a79e3f949d675b1d04e6fe3ccd53fad97aa7e2f6a83f2985502663f420"},
 ]
 six = [
     {file = "six-1.15.0-py2.py3-none-any.whl", hash = "sha256:8b74bedcbbbaca38ff6d7491d76f2b06b3592611af620f8426e82dddb04a5ced"},
@@ -1059,11 +987,6 @@ thinc = [
 tqdm = [
     {file = "tqdm-4.48.2-py2.py3-none-any.whl", hash = "sha256:1a336d2b829be50e46b84668691e0a2719f26c97c62846298dd5ae2937e4d5cf"},
     {file = "tqdm-4.48.2.tar.gz", hash = "sha256:564d632ea2b9cb52979f7956e093e831c28d441c11751682f84c86fc46e4fd21"},
-]
-typing-extensions = [
-    {file = "typing_extensions-3.7.4.3-py2-none-any.whl", hash = "sha256:dafc7639cde7f1b6e1acc0f457842a83e722ccca8eef5270af2d74792619a89f"},
-    {file = "typing_extensions-3.7.4.3-py3-none-any.whl", hash = "sha256:7cb407020f00f7bfc3cb3e7881628838e69d8f3fcab2f64742a5e76b2f841918"},
-    {file = "typing_extensions-3.7.4.3.tar.gz", hash = "sha256:99d4073b617d30288f569d3f13d2bd7548c3a7e4c8de87db09a9d29bb3a4a60c"},
 ]
 urllib3 = [
     {file = "urllib3-1.25.10-py2.py3-none-any.whl", hash = "sha256:e7983572181f5e1522d9c98453462384ee92a0be7fac5f1413a1e35c56cc0461"},
