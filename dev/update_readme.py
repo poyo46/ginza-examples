@@ -17,7 +17,7 @@ def rep_def() -> Dict[str, str]:
 
 def updated_rep(dic) -> Dict:
     print('token_information')
-    dic['{{token_information}}'] = template(
+    dic['token_information'] = template(
         token_information,
         result_markdown=table_md(
             token_information.ATTRS,
@@ -26,7 +26,7 @@ def updated_rep(dic) -> Dict:
     )
 
     print('split_text')
-    dic['{{split_text}}'] = template(
+    dic['split_text'] = template(
         split_text,
         result_console='\n'.join(
             split_text.get_sentences(split_text.EXAMPLE_TEXT)
@@ -35,8 +35,8 @@ def updated_rep(dic) -> Dict:
 
     print('displacy')
     displacy_img_path = 'examples/displacy.svg'
-    dic['{{displacy_img_path}}'] = displacy_img_path
-    dic['{{displacy}}'] = template(
+    dic['displacy_img_path'] = displacy_img_path
+    dic['displacy'] = template(
         displacy,
         result_console='\n'.join([
             "Using the 'dep' visualizer",
@@ -46,10 +46,10 @@ def updated_rep(dic) -> Dict:
     )
 
     print('lexrank_summary')
-    dic['{{lexrank_summary_n}}'] = str(lexrank_summary.N)
-    dic['{{lexrank_summary}}'] = template(
+    dic['lexrank_summary_n'] = str(lexrank_summary.N)
+    dic['lexrank_summary'] = template(
         lexrank_summary,
-        result_console='\n'.join(lexrank_summary.main(
+        result_console='\n'.join(lexrank_summary.get_summary(
             lexrank_summary.EXAMPLE_PATH,
             lexrank_summary.N
         ))
@@ -66,7 +66,7 @@ def readme_template() -> str:
 
 def replace_vars(md: str) -> str:
     for k, v in rep.items():
-        md = md.replace(k, v)
+        md = md.replace('{{' + k + '}}', v)
     return md
 
 

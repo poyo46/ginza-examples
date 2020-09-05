@@ -2,7 +2,7 @@ import sys
 import re
 from typing import Tuple, List
 from pathlib import Path
-import numpy
+import numpy as np
 import spacy
 from sumy.summarizers.lex_rank import LexRankSummarizer
 
@@ -31,7 +31,7 @@ def preprocess(text: str) -> str:
     return text
 
 
-def lexrank_scoring(text: str) -> Tuple[List[str], numpy.ndarray]:
+def lexrank_scoring(text: str) -> Tuple[List[str], np.ndarray]:
     """
     LexRankアルゴリズムによって文に点数をつける。
     この点数は文の重要度とみなすことができる。
@@ -45,7 +45,7 @@ def lexrank_scoring(text: str) -> Tuple[List[str], numpy.ndarray]:
     -------
     List[str]
         text を文のリストに分解したもの。
-    numpy.ndarray
+    np.ndarray
         文のリストに対応する重要度のリスト。
     """
     doc = nlp(text)
@@ -76,7 +76,7 @@ def lexrank_scoring(text: str) -> Tuple[List[str], numpy.ndarray]:
     return sentences, scores
 
 
-def extract(sentences: List[str], scores: numpy.ndarray, n: int) -> List[str]:
+def extract(sentences: List[str], scores: np.ndarray, n: int) -> List[str]:
     """
     スコアの高い順にn個の文を抽出する。
 
@@ -84,7 +84,7 @@ def extract(sentences: List[str], scores: numpy.ndarray, n: int) -> List[str]:
     ----------
     sentences : List[str]
         文のリスト。
-    scores : numpy.ndarray
+    scores : np.ndarray
         スコアのリスト。
     n : int
         抽出する文の数。
@@ -112,7 +112,7 @@ def extract(sentences: List[str], scores: numpy.ndarray, n: int) -> List[str]:
     return [sentences[i] for i in extracted_indices]
 
 
-def main(path, n) -> List[str]:
+def get_summary(path, n) -> List[str]:
     with open(path, mode='rt', encoding='utf-8') as f:
         text = f.read()
     text = preprocess(text)
@@ -128,7 +128,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 2:
         input_path = sys.argv[1]
         input_n = int(sys.argv[2])
-        extracted_sentences = main(input_path, input_n)
+        extracted_sentences = get_summary(input_path, input_n)
         print('\n'.join(extracted_sentences))
     else:
         print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)

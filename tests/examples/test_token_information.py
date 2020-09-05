@@ -1,8 +1,9 @@
-from examples.token_information import tokenize, TEXT, main
+import subprocess
+from examples.token_information import tokenize, EXAMPLE_TEXT, EXAMPLE_SCRIPT
 
 
 def test_tokenize():
-    attrs_list = tokenize(TEXT)
+    attrs_list = tokenize(EXAMPLE_TEXT)
     expected = [
         ['0', '田中', '田中', 'タナカ', 'PROPN', '名詞-固有名詞-人名-姓', '',
          'Person'],
@@ -19,5 +20,6 @@ def test_tokenize():
     assert attrs_list == expected
 
 
-def test_main():
-    main()
+def test_script():
+    return_code = subprocess.call(EXAMPLE_SCRIPT.split(' '))
+    assert return_code == 0

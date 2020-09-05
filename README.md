@@ -55,7 +55,7 @@
 
 なお、決して [MeCab](https://taku910.github.io/mecab/) をディスっているわけではないことを強調しておきます。状況や目的によって最適な選択は変わります。
 [MeCab](https://taku910.github.io/mecab/) はすでに長期間使用されており、高速というだけでなく高い信頼性、そして豊富な実践例があります。
-また、最新の語彙に随時対応し続ける [NEologd](https://github.com/neologd/mecab-ipadic-neologd) や、国立国語研究所が開発した [UniDic](https://unidic.ninjal.ac.jp/about_unidic) を利用することもできます。
+また、最新の語彙に随時対応し続ける [NEologd](https://github.com/neologd/mecab-ipadic-neologd) や、国立国語研究所が開発した [UniDic](https://unidic.ninjal.ac.jp/about_unidic) を利用することができるのも [MeCab](https://taku910.github.io/mecab/) のメリットだと思います。
 
 </div>
 </details>
@@ -73,7 +73,7 @@
 **動作環境構築**
 
 Pythonに親しみのない方や手っ取り早く動作環境がほしい方向けにオンラインの実行環境を用意しています。
-ブラウザで [こちら](https://repl.it/github/poyo46/ginza-examples) を開いて実行してください。
+ブラウザで [GiNZA examples - Repl.it](https://repl.it/github/poyo46/ginza-examples) を開いて実行してください。
 ローカル環境で試行したい方は [GiNZA examples - GitHub](https://github.com/poyo46/ginza-examples) をcloneしてご利用ください。
 
 どちらの環境でもセットアップに `$ poetry install` が必要です。大きめの辞書をダウンロードするため5分程度かかる可能性があります。
@@ -206,7 +206,7 @@ $ python examples/token_information.py 田中部長に伝えてください。
 
 ```python:examples/split_text.py
 import sys
-from typing import List, Optional
+from typing import List
 import spacy
 
 nlp = spacy.load('ja_ginza')
@@ -364,7 +364,7 @@ import sys
 import re
 from typing import Tuple, List
 from pathlib import Path
-import numpy
+import numpy as np
 import spacy
 from sumy.summarizers.lex_rank import LexRankSummarizer
 
@@ -393,7 +393,7 @@ def preprocess(text: str) -> str:
     return text
 
 
-def lexrank_scoring(text: str) -> Tuple[List[str], numpy.ndarray]:
+def lexrank_scoring(text: str) -> Tuple[List[str], np.ndarray]:
     """
     LexRankアルゴリズムによって文に点数をつける。
     この点数は文の重要度とみなすことができる。
@@ -407,7 +407,7 @@ def lexrank_scoring(text: str) -> Tuple[List[str], numpy.ndarray]:
     -------
     List[str]
         text を文のリストに分解したもの。
-    numpy.ndarray
+    np.ndarray
         文のリストに対応する重要度のリスト。
     """
     doc = nlp(text)
@@ -438,7 +438,7 @@ def lexrank_scoring(text: str) -> Tuple[List[str], numpy.ndarray]:
     return sentences, scores
 
 
-def extract(sentences: List[str], scores: numpy.ndarray, n: int) -> List[str]:
+def extract(sentences: List[str], scores: np.ndarray, n: int) -> List[str]:
     """
     スコアの高い順にn個の文を抽出する。
 
@@ -446,7 +446,7 @@ def extract(sentences: List[str], scores: numpy.ndarray, n: int) -> List[str]:
     ----------
     sentences : List[str]
         文のリスト。
-    scores : numpy.ndarray
+    scores : np.ndarray
         スコアのリスト。
     n : int
         抽出する文の数。
@@ -474,7 +474,7 @@ def extract(sentences: List[str], scores: numpy.ndarray, n: int) -> List[str]:
     return [sentences[i] for i in extracted_indices]
 
 
-def main(path, n) -> List[str]:
+def get_summary(path, n) -> List[str]:
     with open(path, mode='rt', encoding='utf-8') as f:
         text = f.read()
     text = preprocess(text)
@@ -490,7 +490,7 @@ if __name__ == '__main__':
     if len(sys.argv) > 2:
         input_path = sys.argv[1]
         input_n = int(sys.argv[2])
-        extracted_sentences = main(input_path, input_n)
+        extracted_sentences = get_summary(input_path, input_n)
         print('\n'.join(extracted_sentences))
     else:
         print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)
@@ -523,6 +523,7 @@ $ python examples/lexrank_summary.py examples/data/run_melos.txt 15
 ```
 
 LexRankアルゴリズムによって抽出された、重要度の高い上位 15 文です。
+重要度のスコアは一度だけ計算すればよいため、抽出する文の数を変更したい場合は `lexrank_scoring` の結果を再利用すると速いです。
 
 ## ライセンス
 
