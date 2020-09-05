@@ -1,0 +1,2 @@
+run = "rm -rf .github && rm -rf dev && rm -rf tests && rm .gitignore && poetry install"
+language = "python3"
