@@ -1,4 +1,6 @@
-# この記事について
+# 日本語NLPライブラリGiNZAのすゝめ
+
+## この記事について
 
 本記事は、日本語の自然言語処理ライブラリである {{ginza}} の紹介記事です。
 {{ge-qiita}} と {{ge-github}} の二箇所に同じものを公開しています。
@@ -27,7 +29,7 @@
 * {{mecab}} などの形態素解析器を使ったことはあるが {{ginza}} は初めて聞いたという方
   * 簡単に比較できるものではありませんが新たに {{ginza}} を知る価値はあると思います。
 
-# GiNZAとは
+## GiNZAとは
 
 {{ginza-logo}}
 
@@ -58,7 +60,7 @@
 </div>
 </details>
 
-# GiNZAを動かす
+## GiNZAを動かす
 
 ここで紹介するコードは {{github-virtualenv}} のubuntu-latest, macos-latest, windows-latestとPython 3.6, 3.7, 3.8の組み合わせ（計9通り）で動作検証しています。
 
@@ -76,7 +78,7 @@ Pythonに親しみのない方や手っ取り早く動作環境がほしい方�
 
 どちらの環境でもセットアップに `$ poetry install` が必要です。大きめの辞書をダウンロードするため5分程度かかる可能性があります。
 
-## 形態素解析
+### 形態素解析
 
 {{token_information}}
 
@@ -102,7 +104,7 @@ Pythonに親しみのない方や手っ取り早く動作環境がほしい方�
 * 文中に含まれる食べ物を抽出してカウントする。
 * 文中の個人情報をマスキングする。
 
-## テキストを文のリストに分割する
+### テキストを文のリストに分割する
 
 {{split_text}}
 
@@ -115,33 +117,33 @@ Pythonに親しみのない方や手っ取り早く動作環境がほしい方�
 </div>
 </details>
 
-## 依存構造解析・可視化
+### 依存構造解析・可視化
 
 {{displacy}}
 
 ブラウザで http://localhost:5000 を開くと解析結果が表示されます。同時に、サンプルコードでは画像を {{displacy_img}} に保存しています。
 
-## 文章要約
+### 文章要約
 
 LexRankアルゴリズムを用いて抽出型要約を実行します。抽出型要約とは、元の文から重要な文を（無加工で）抽出するものです。サンプル文として [『走れメロス』](https://github.com/poyo46/ginza-examples/blob/master/examples/data/run_melos.txt) を用意しました。
 
 {{lexrank_summary}}
 
-LexRankアルゴリズムによって抽出された、重要度の高い上位 {{lexrank_summary_n}} 文です。重要度のスコアは一度だけ計算すればよいため、抽出する文の数を変更したい場合は `lexrank_scoring` の結果を再利用すると速いです。
+LexRankアルゴリズムによって抽出された、重要度の高い上位 {{lexrank_summary_n}} 文です。重要度のスコアは一度だけ計算すればよいため、抽出する文の数を変更したい場合は [lexrank_scoring](https://github.com/poyo46/ginza-examples/blob/master/examples/lexrank_summary.py#L34) の結果を再利用すると速いです。
 
-# ライセンス
+## ライセンス
 
-## GiNZA
+### GiNZA
 {{ginza}} そのものは {{ginza-license}} で利用できます。詳しくは [ライセンス条項](https://github.com/megagonlabs/ginza#license) をご覧ください。
 
-## GiNZA examples
+### GiNZA examples
 筆者の {{ge-qiita}} および {{ge-github}} も同様に [MIT License](https://github.com/poyo46/ginza-examples/blob/master/LICENSE) で利用できます。
 
-# 参考文献
+## 関連リンク
 * [株式会社リクルートの発表](https://www.recruit.co.jp/newsroom/2019/0402_18331.html)
 * {{ginza-hp}}
 * [spaCy API doc](https://spacy.io/api)
 * {{mecab}}
 
-# ご意見・ご要望など
+## ご意見・ご要望など
 ご意見・ご要望などは随時受け付けています。 {{ge-qiita}} へコメント、または {{ge-issues}} へ投稿をお願いします。
