@@ -72,13 +72,20 @@
 
 [![TestOther](https://github.com/poyo46/ginza-examples/workflows/TestOther/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestOther) （リンク切れのチェックなど）
 
-**動作環境構築**
+### セットアップ
 
-Pythonに親しみのない方や手っ取り早く動作環境がほしい方向けにオンラインの実行環境を用意しています。
-ブラウザで [GiNZA examples - Repl.it](https://repl.it/github/poyo46/ginza-examples) を開いて実行してください。
-ローカル環境で試行したい方は [GiNZA examples - GitHub](https://github.com/poyo46/ginza-examples) をcloneしてご利用ください。
+**オンライン**
 
-どちらの環境でもセットアップに `$ poetry install` が必要です。大きめの辞書をダウンロードするため5分程度かかる可能性があります。
+Pythonに親しみのない方や手っ取り早く動作環境がほしい方向けにオンラインの実行環境を用意しています。ブラウザで [GiNZA examples - Repl.it](https://repl.it/github/poyo46/ginza-examples) を開いて `Run` をクリックしてください。セットアップ完了までに5分程度かかります。
+
+**ローカル環境**
+
+```
+git clone https://github.com/poyo46/ginza-examples.git
+poetry install
+```
+
+もし `poetry` が未導入であれば `$ pip install poetry` でインストールしてください。
 
 ### 形態素解析
 
@@ -158,7 +165,7 @@ if __name__ == '__main__':
 **実行**
 
 ```
-$ python examples/token_information.py 田中部長に伝えてください。
+python examples/token_information.py 田中部長に伝えてください。
 ```
 
 **結果**
@@ -251,7 +258,7 @@ if __name__ == '__main__':
 **実行**
 
 ```
-$ python examples/split_text.py はい、そうです。ありがとうございますよろしくお願いします。
+python examples/split_text.py はい、そうです。ありがとうございますよろしくお願いします。
 ```
 
 **結果**
@@ -342,7 +349,7 @@ if __name__ == '__main__':
 **実行**
 
 ```
-$ python examples/displacy.py あのラーメン屋にはよく行く。
+python examples/displacy.py あのラーメン屋にはよく行く。
 ```
 
 **結果**
@@ -506,7 +513,7 @@ if __name__ == '__main__':
 **実行**
 
 ```
-$ python examples/lexrank_summary.py examples/data/run_melos.txt 15
+python examples/lexrank_summary.py examples/data/run_melos.txt 15
 ```
 
 **結果**
@@ -590,7 +597,7 @@ if __name__ == '__main__':
 **実行**
 
 ```
-$ python examples/similarity.py 今日はとても良い天気です。 昨日の天気は大雨だったのに。 ラーメンを食べました。
+python examples/similarity.py 今日はとても良い天気です。 昨日の天気は大雨だったのに。 ラーメンを食べました。
 ```
 
 **結果**

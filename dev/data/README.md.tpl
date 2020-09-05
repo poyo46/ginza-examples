@@ -72,13 +72,20 @@
 
 [![TestOther](https://github.com/poyo46/ginza-examples/workflows/TestOther/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestOther) （リンク切れのチェックなど）
 
-**動作環境構築**
+### セットアップ
 
-Pythonに親しみのない方や手っ取り早く動作環境がほしい方向けにオンラインの実行環境を用意しています。
-ブラウザで {{repl}} を開いて実行してください。
-ローカル環境で試行したい方は {{ge-github}} をcloneしてご利用ください。
+**オンライン**
 
-どちらの環境でもセットアップに `$ poetry install` が必要です。大きめの辞書をダウンロードするため5分程度かかる可能性があります。
+Pythonに親しみのない方や手っ取り早く動作環境がほしい方向けにオンラインの実行環境を用意しています。ブラウザで {{repl}} を開いて `Run` をクリックしてください。セットアップ完了までに5分程度かかります。
+
+**ローカル環境**
+
+```
+git clone https://github.com/poyo46/ginza-examples.git
+poetry install
+```
+
+もし `poetry` が未導入であれば `$ pip install poetry` でインストールしてください。
 
 ### 形態素解析
 
