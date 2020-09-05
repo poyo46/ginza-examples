@@ -80,7 +80,7 @@ Pythonに親しみのない方や手っ取り早く動作環境がほしい方�
 
 ### 形態素解析
 
-**ソースコード**
+[**ソースコード**](https://github.com/poyo46/ginza-examples/blob/master/examples/token_information.py)
 
 ```python:examples/token_information.py
 import sys
@@ -202,7 +202,7 @@ $ python examples/token_information.py 田中部長に伝えてください。
 
 ### テキストを文のリストに分割する
 
-**ソースコード**
+[**ソースコード**](https://github.com/poyo46/ginza-examples/blob/master/examples/split_text.py)
 
 ```python:examples/split_text.py
 import sys
@@ -271,7 +271,7 @@ $ python examples/split_text.py はい、そうです。ありがとうござい
 
 ### 依存構造解析・可視化
 
-**ソースコード**
+[**ソースコード**](https://github.com/poyo46/ginza-examples/blob/master/examples/displacy.py)
 
 ```python:examples/displacy.py
 import sys
@@ -357,7 +357,7 @@ LexRankアルゴリズムを用いて抽出型要約を実行します。
 抽出型要約とは、元の文から重要な文を（無加工で）抽出するものです。
 サンプル文として [『走れメロス』](https://github.com/poyo46/ginza-examples/blob/master/examples/data/run_melos.txt) を用意しました。
 
-**ソースコード**
+[**ソースコード**](https://github.com/poyo46/ginza-examples/blob/master/examples/lexrank_summary.py)
 
 ```python:examples/lexrank_summary.py
 import sys

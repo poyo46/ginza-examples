@@ -18,10 +18,12 @@ def template(module,
              result_console: Optional[str] = None,
              result_markdown: Optional[str] = None,
              result_img_path: Optional[str] = None) -> str:
+    github_url = 'https://github.com/poyo46/ginza-examples/blob/master/'
+    module_path = f'{module.__name__.replace(".", "/")}.py'
     lines = [
-        '**ソースコード**',
+        f'[**ソースコード**]({github_url + module_path})',
         '',
-        f'```python:{module.__name__.replace(".", "/")}.py',
+        f'```python:{module_path}',
         inspect.getsource(module).strip('\n'),
         '```',
         '',
