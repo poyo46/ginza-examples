@@ -1,6 +1,4 @@
-# 日本語NLPライブラリGiNZAのすゝめ
-
-## この記事について
+# この記事について
 
 本記事は、日本語の自然言語処理ライブラリである [GiNZA](https://github.com/megagonlabs/ginza) の紹介記事です。
 [Qiitaの記事](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971) と [GiNZA examples - GitHub](https://github.com/poyo46/ginza-examples) の二箇所に同じものを公開しています。
@@ -29,7 +27,7 @@
 * [MeCab](https://taku910.github.io/mecab/) などの形態素解析器を使ったことはあるが [GiNZA](https://github.com/megagonlabs/ginza) は初めて聞いたという方
   * 簡単に比較できるものではありませんが新たに [GiNZA](https://github.com/megagonlabs/ginza) を知る価値はあると思います。
 
-## GiNZAとは
+# GiNZAとは
 
 ![GiNZAのロゴ](https://raw.githubusercontent.com/megagonlabs/ginza/static/docs/images/GiNZA_logo_4c_y.png)
 
@@ -60,7 +58,7 @@
 </div>
 </details>
 
-## GiNZAを動かす
+# GiNZAを動かす
 
 ここで紹介するコードは [GitHubホストランナーの仮想環境](https://docs.github.com/ja/actions/reference/virtual-environments-for-github-hosted-runners#supported-runners-and-hardware-resources) のubuntu-latest, macos-latest, windows-latestとPython 3.6, 3.7, 3.8の組み合わせ（計9通り）で動作検証しています。
 
@@ -78,9 +76,9 @@ Pythonに親しみのない方や手っ取り早く動作環境がほしい方�
 
 どちらの環境でもセットアップに `$ poetry install` が必要です。大きめの辞書をダウンロードするため5分程度かかる可能性があります。
 
-### 形態素解析
+## 形態素解析
 
-[**ソースコード**](https://github.com/poyo46/ginza-examples/blob/master/examples/token_information.py)
+<details><summary>ソースコードを開く</summary><div>
 
 ```python:examples/token_information.py
 import sys
@@ -158,6 +156,10 @@ if __name__ == '__main__':
         print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)
 ```
 
+</div></details>
+
+[ソースコードをGitHubで見る](https://github.com/poyo46/ginza-examples/blob/master/examples/token_information.py)
+
 **実行**
 
 ```
@@ -185,8 +187,7 @@ $ python examples/token_information.py 田中部長に伝えてください。
 
 `Token.pos_` は [Universal Part-of-speech Tags](https://spacy.io/api/annotation#pos-universal) と呼ばれるもので、言語に依存せず全世界的に単語の品詞を表そうというものです（Part-of-speech = 品詞）。
 
-`Token.ent_type_` は固有表現と呼ばれるもので、例えば人名には `Person` が、料理名には `Dish` が割り当てられます。
-詳細な定義については [こちら](http://liat-aip.sakura.ne.jp/ene/ene8/definition_jp/html/enedetail.html) をご覧ください。
+`Token.ent_type_` は固有表現と呼ばれるもので、例えば人名には `Person` が、料理名には `Dish` が割り当てられます。詳細な定義については [こちら](http://liat-aip.sakura.ne.jp/ene/ene8/definition_jp/html/enedetail.html) をご覧ください。
 
 `Token` の他の属性については [spaCy API doc](https://spacy.io/api/token#attributes) をご覧ください。
 
@@ -200,9 +201,9 @@ $ python examples/token_information.py 田中部長に伝えてください。
 * 文中に含まれる食べ物を抽出してカウントする。
 * 文中の個人情報をマスキングする。
 
-### テキストを文のリストに分割する
+## テキストを文のリストに分割する
 
-[**ソースコード**](https://github.com/poyo46/ginza-examples/blob/master/examples/split_text.py)
+<details><summary>ソースコードを開く</summary><div>
 
 ```python:examples/split_text.py
 import sys
@@ -246,6 +247,10 @@ if __name__ == '__main__':
         print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)
 ```
 
+</div></details>
+
+[ソースコードをGitHubで見る](https://github.com/poyo46/ginza-examples/blob/master/examples/split_text.py)
+
 **実行**
 
 ```
@@ -269,9 +274,9 @@ $ python examples/split_text.py はい、そうです。ありがとうござい
 </div>
 </details>
 
-### 依存構造解析・可視化
+## 依存構造解析・可視化
 
-[**ソースコード**](https://github.com/poyo46/ginza-examples/blob/master/examples/displacy.py)
+<details><summary>ソースコードを開く</summary><div>
 
 ```python:examples/displacy.py
 import sys
@@ -333,6 +338,10 @@ if __name__ == '__main__':
         print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)
 ```
 
+</div></details>
+
+[ソースコードをGitHubで見る](https://github.com/poyo46/ginza-examples/blob/master/examples/displacy.py)
+
 **実行**
 
 ```
@@ -348,16 +357,13 @@ Serving on http://0.0.0.0:5000 ...
 
 ![結果の画像](https://raw.githubusercontent.com/poyo46/ginza-examples/master/examples/displacy.svg)
 
-ブラウザで http://localhost:5000 を開くと解析結果が表示されます。
-同時に、サンプルコードでは画像を [examples/displacy.svg](https://raw.githubusercontent.com/poyo46/ginza-examples/master/examples/displacy.svg) に保存しています。
+ブラウザで http://localhost:5000 を開くと解析結果が表示されます。同時に、サンプルコードでは画像を [examples/displacy.svg](https://raw.githubusercontent.com/poyo46/ginza-examples/master/examples/displacy.svg) に保存しています。
 
-### 文章要約
+## 文章要約
 
-LexRankアルゴリズムを用いて抽出型要約を実行します。
-抽出型要約とは、元の文から重要な文を（無加工で）抽出するものです。
-サンプル文として [『走れメロス』](https://github.com/poyo46/ginza-examples/blob/master/examples/data/run_melos.txt) を用意しました。
+LexRankアルゴリズムを用いて抽出型要約を実行します。抽出型要約とは、元の文から重要な文を（無加工で）抽出するものです。サンプル文として [『走れメロス』](https://github.com/poyo46/ginza-examples/blob/master/examples/data/run_melos.txt) を用意しました。
 
-[**ソースコード**](https://github.com/poyo46/ginza-examples/blob/master/examples/lexrank_summary.py)
+<details><summary>ソースコードを開く</summary><div>
 
 ```python:examples/lexrank_summary.py
 import sys
@@ -496,6 +502,10 @@ if __name__ == '__main__':
         print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)
 ```
 
+</div></details>
+
+[ソースコードをGitHubで見る](https://github.com/poyo46/ginza-examples/blob/master/examples/lexrank_summary.py)
+
 **実行**
 
 ```
@@ -522,24 +532,21 @@ $ python examples/lexrank_summary.py examples/data/run_melos.txt 15
 メロスだ。
 ```
 
-LexRankアルゴリズムによって抽出された、重要度の高い上位 15 文です。
-重要度のスコアは一度だけ計算すればよいため、抽出する文の数を変更したい場合は `lexrank_scoring` の結果を再利用すると速いです。
+LexRankアルゴリズムによって抽出された、重要度の高い上位 15 文です。重要度のスコアは一度だけ計算すればよいため、抽出する文の数を変更したい場合は `lexrank_scoring` の結果を再利用すると速いです。
 
-## ライセンス
+# ライセンス
 
-### GiNZA
+## GiNZA
 [GiNZA](https://github.com/megagonlabs/ginza) そのものは [MIT License](https://github.com/megagonlabs/ginza/blob/develop/LICENSE) で利用できます。詳しくは [ライセンス条項](https://github.com/megagonlabs/ginza#license) をご覧ください。
 
-### GiNZA examples
+## GiNZA examples
 筆者の [Qiitaの記事](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971) および [GiNZA examples - GitHub](https://github.com/poyo46/ginza-examples) も同様に [MIT License](https://github.com/poyo46/ginza-examples/blob/master/LICENSE) で利用できます。
 
-## 参考文献
+# 参考文献
 * [株式会社リクルートの発表](https://www.recruit.co.jp/newsroom/2019/0402_18331.html)
 * [GiNZAの公開ページ](https://megagonlabs.github.io/ginza/)
 * [spaCy API doc](https://spacy.io/api)
 * [MeCab](https://taku910.github.io/mecab/)
 
-## ご意見・ご要望など
+# ご意見・ご要望など
 ご意見・ご要望などは随時受け付けています。 [Qiitaの記事](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971) へコメント、または [GitHubのIssues](https://github.com/poyo46/ginza-examples/issues) へ投稿をお願いします。
-
-

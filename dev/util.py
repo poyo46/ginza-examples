@@ -36,11 +36,15 @@ def template(module,
              result_img_url: Optional[str] = None) -> str:
     module_path = f'{module.__name__.replace(".", "/")}.py'
     lines = [
-        f'[**ソースコード**]({blob_url(module_path)})',
+        '<details><summary>ソースコードを開く</summary><div>',
         '',
         f'```python:{module_path}',
         inspect.getsource(module).strip('\n'),
         '```',
+        '',
+        '</div></details>',
+        '',
+        f'[ソースコードをGitHubで見る]({blob_url(module_path)})',
         '',
         '**実行**',
         '',
