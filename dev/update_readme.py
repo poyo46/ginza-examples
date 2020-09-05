@@ -3,7 +3,7 @@
 from typing import Dict
 from pathlib import Path
 import yaml
-from dev.util import table_md, template
+from dev.util import table_md, template, raw_url
 from examples import token_information, split_text, displacy, lexrank_summary
 
 
@@ -35,14 +35,15 @@ def updated_rep(dic) -> Dict:
 
     print('displacy')
     displacy_img_path = 'examples/displacy.svg'
-    dic['displacy_img_path'] = displacy_img_path
+    displacy_img_url = raw_url(displacy_img_path)
+    dic['displacy_img'] = f'[{displacy_img_path}]({displacy_img_url})'
     dic['displacy'] = template(
         displacy,
         result_console='\n'.join([
             "Using the 'dep' visualizer",
             'Serving on http://0.0.0.0:5000 ...'
         ]),
-        result_img_path=displacy_img_path
+        result_img_url=displacy_img_url
     )
 
     print('lexrank_summary')

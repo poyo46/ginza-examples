@@ -14,14 +14,29 @@ def table_md(header: List[str], rows: List[List[str]]) -> str:
     return head_md + hr_md + body_md
 
 
+def blob_url(path: str) -> str:
+    base = 'https://github.com/poyo46/ginza-examples/blob/master/'
+    if path.startswith('/'):
+        return base + path[1:]
+    else:
+        return base + path
+
+
+def raw_url(path: str) -> str:
+    base = 'https://raw.githubusercontent.com/poyo46/ginza-examples/master/'
+    if path.startswith('/'):
+        return base + path[1:]
+    else:
+        return base + path
+
+
 def template(module,
              result_console: Optional[str] = None,
              result_markdown: Optional[str] = None,
-             result_img_path: Optional[str] = None) -> str:
-    github_url = 'https://github.com/poyo46/ginza-examples/blob/master/'
+             result_img_url: Optional[str] = None) -> str:
     module_path = f'{module.__name__.replace(".", "/")}.py'
     lines = [
-        f'[**ソースコード**]({github_url + module_path})',
+        f'[**ソースコード**]({blob_url(module_path)})',
         '',
         f'```python:{module_path}',
         inspect.getsource(module).strip('\n'),
@@ -44,9 +59,8 @@ def template(module,
     if result_markdown is not None:
         lines.append(result_markdown)
         lines.append('')
-    if result_img_path is not None:
-        raw = 'https://raw.githubusercontent.com/poyo46/ginza-examples/master/'
-        lines.append(f'![結果の画像]({raw + result_img_path})')
+    if result_img_url is not None:
+        lines.append(f'![結果の画像]({result_img_url})')
         lines.append('')
     lines = lines[:-1]
     return '\n'.join(lines)

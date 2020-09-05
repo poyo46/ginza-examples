@@ -349,7 +349,7 @@ Serving on http://0.0.0.0:5000 ...
 ![結果の画像](https://raw.githubusercontent.com/poyo46/ginza-examples/master/examples/displacy.svg)
 
 ブラウザで http://localhost:5000 を開くと解析結果が表示されます。
-同時に、サンプルコードでは画像を `examples/displacy.svg` に保存しています。
+同時に、サンプルコードでは画像を [examples/displacy.svg](https://raw.githubusercontent.com/poyo46/ginza-examples/master/examples/displacy.svg) に保存しています。
 
 ### 文章要約
 
