@@ -64,11 +64,11 @@
 
 ## GiNZAを動かす
 
-ここで紹介するコードは {{github-virtualenv}} のubuntu-latest, macos-latest, windows-latestとPython 3.6, 3.7, 3.8の組み合わせ（計9通り）で動作検証しています。
+ここで紹介するコードは {{github-virtualenv}} のubuntu-latest, macos-latestとPython 3.6, 3.7, 3.8の組み合わせ（計6通り）で動作検証しています。
 
 **動作検証結果**
 
-[![TestOnUbuntu](https://github.com/poyo46/ginza-examples/workflows/TestOnUbuntu/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestOnUbuntu) [![TestOnMac](https://github.com/poyo46/ginza-examples/workflows/TestOnMac/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestOnMac) [![TestOnWindows](https://github.com/poyo46/ginza-examples/workflows/TestOnWindows/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestOnWindows)
+[![TestGinzaExamples](https://github.com/poyo46/ginza-examples/workflows/TestGinzaExamples/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestGinzaExamples) （GiNZA Examples 本体）
 
 [![TestOther](https://github.com/poyo46/ginza-examples/workflows/TestOther/badge.svg)](https://github.com/poyo46/ginza-examples/actions?query=workflow%3ATestOther) （リンク切れのチェックなど）
 

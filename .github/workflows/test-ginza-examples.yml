@@ -1,4 +1,4 @@
-name: TestOnWindows
+name: TestGinzaExamples
 
 on:
   schedule:
@@ -8,7 +8,7 @@ jobs:
   build:
     strategy:
       matrix:
-        platform: [ windows-latest ]
+        platform: [ ubuntu-latest,  macos-latest ]
         python-version: [ 3.6, 3.7, 3.8 ]
     runs-on: ${{ matrix.platform }}
     steps:
@@ -24,5 +24,4 @@ jobs:
           poetry update
       - name: Test with pytest
         run: |
-          echo "::set-env name=PYTHONIOENCODING::utf-8"
           poetry run pytest -v -s tests/examples/
