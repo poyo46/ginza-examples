@@ -10,6 +10,7 @@ def table_md(header: List[str], rows: List[List[str]]) -> str:
     hr_md = '| ' + ' | '.join([':--'] * len(header)) + ' |\n'
     body_md = ''
     for row in rows:
+        row = [str(r) for r in row]
         body_md += '| ' + ' | '.join(row) + ' |\n'
     return head_md + hr_md + body_md
 

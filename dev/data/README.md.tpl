@@ -17,6 +17,8 @@
 コンピュータ産業の父であり筆者の尊敬するエンジニアである池田敏雄さんはこのように言いました。この記事の目的は {{ginza}} の感動を共有することです。
 自然言語処理という難解な分野でありますが、なるべく事前知識なしで {{ginza}} を楽しめるようにと願っています。
 
+なお、最初にこの記事を書いたのは2019年の8月です。 {{ginza}} の更新に追いつけなくなっていたので改めて書き直しました。
+
 </div>
 </details>
 
@@ -82,6 +84,8 @@ Pythonに親しみのない方や手っ取り早く動作環境がほしい方�
 
 {{token_information}}
 
+※結果は見やすいように加工しています。
+
 <details>
 <summary>説明を開く</summary>
 <div>
@@ -131,19 +135,35 @@ LexRankアルゴリズムを用いて抽出型要約を実行します。抽出�
 
 LexRankアルゴリズムによって抽出された、重要度の高い上位 {{lexrank_summary_n}} 文です。重要度のスコアは一度だけ計算すればよいため、抽出する文の数を変更したい場合は [lexrank_scoring](https://github.com/poyo46/ginza-examples/blob/master/examples/lexrank_summary.py#L34) の結果を再利用すると速いです。
 
+### 文の類似度
+
+{{similarity}}
+
+※結果は見やすいように加工しています。
+
+<details>
+<summary>説明を開く</summary>
+<div>
+
+{{spacy}} の [Doc.similarity()](https://spacy.io/api/doc#similarity) を利用して文同士の類似度を計算しています。自分自身との類似度は1で、類似度の値が大きいほど似ているということです。
+
+</div>
+</details>
+
 ## ライセンス
 
 ### GiNZA
+
 {{ginza}} そのものは {{ginza-license}} で利用できます。詳しくは [ライセンス条項](https://github.com/megagonlabs/ginza#license) をご覧ください。
 
 ### GiNZA examples
+
 筆者の {{ge-qiita}} および {{ge-github}} も同様に [MIT License](https://github.com/poyo46/ginza-examples/blob/master/LICENSE) で利用できます。
 
-## 関連リンク
-* [株式会社リクルートの発表](https://www.recruit.co.jp/newsroom/2019/0402_18331.html)
-* {{ginza-hp}}
-* [spaCy API doc](https://spacy.io/api)
-* {{mecab}}
+## 注意事項
+
+* {{ginza}} を利用できる言語はPythonのみです。しかしフレームワークである {{spacy}} にはJavaScript版やR版など [Python以外の言語での実装](https://spacy.io/universe/category/nonpython) があるため、すごい人たちが移植してくれることを期待します。
+* 単語のネガティブ・ポジティブを数値化する [Token.sentiment](https://spacy.io/api/token#attributes) は現時点で実装されていませんが、 {{ginza}} 開発者の方から直々にコメントをいただき、今後実装を計画していただけるとのことです。
 
 ## ご意見・ご要望など
 ご意見・ご要望などは随時受け付けています。 {{ge-qiita}} へコメント、または {{ge-issues}} へ投稿をお願いします。

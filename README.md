@@ -17,6 +17,8 @@
 コンピュータ産業の父であり筆者の尊敬するエンジニアである池田敏雄さんはこのように言いました。この記事の目的は [GiNZA](https://github.com/megagonlabs/ginza) の感動を共有することです。
 自然言語処理という難解な分野でありますが、なるべく事前知識なしで [GiNZA](https://github.com/megagonlabs/ginza) を楽しめるようにと願っています。
 
+なお、最初にこの記事を書いたのは2019年の8月です。 [GiNZA](https://github.com/megagonlabs/ginza) の更新に追いつけなくなっていたので改めて書き直しました。
+
 </div>
 </details>
 
@@ -85,10 +87,9 @@ Pythonに親しみのない方や手っ取り早く動作環境がほしい方�
 ```python:examples/token_information.py
 import sys
 from typing import List
+from pprint import pprint
 import spacy
 import ginza
-from rich.console import Console
-from rich.table import Table
 
 nlp = spacy.load('ja_ginza')
 
@@ -134,14 +135,6 @@ def tokenize(text: str) -> List[List[str]]:
     return attrs_list
 
 
-def print_table(header: List[str], rows: List[List[str]]) -> None:
-    console = Console()
-    table = Table(*header)
-    for r in rows:
-        table.add_row(*r)
-    console.print(table)
-
-
 EXAMPLE_TEXT = '田中部長に伝えてください。'
 EXAMPLE_SCRIPT = f'python examples/token_information.py {EXAMPLE_TEXT}'
 
@@ -153,7 +146,7 @@ ATTRS = [
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         input_text = sys.argv[1]
-        print_table(ATTRS, tokenize(input_text))
+        pprint(tokenize(input_text))
     else:
         print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)
 ```
@@ -180,6 +173,8 @@ $ python examples/token_information.py 田中部長に伝えてください。
 | 5 | ください | くださる | クダサイ | AUX | 動詞-非自立可能 | 五段-ラ行,命令形 |  |
 | 6 | 。 | 。 | 。 | PUNCT | 補助記号-句点 |  |  |
 
+
+※結果は見やすいように加工しています。
 
 <details>
 <summary>説明を開く</summary>
@@ -536,19 +531,102 @@ $ python examples/lexrank_summary.py examples/data/run_melos.txt 15
 
 LexRankアルゴリズムによって抽出された、重要度の高い上位 15 文です。重要度のスコアは一度だけ計算すればよいため、抽出する文の数を変更したい場合は [lexrank_scoring](https://github.com/poyo46/ginza-examples/blob/master/examples/lexrank_summary.py#L34) の結果を再利用すると速いです。
 
+### 文の類似度
+
+<details><summary>ソースコードを開く</summary><div>
+
+```python:examples/similarity.py
+import sys
+from typing import List
+from pprint import pprint
+import spacy
+import numpy as np
+
+nlp = spacy.load('ja_ginza')
+
+
+def similarity_matrix(texts: List[str]) -> List[List[np.float64]]:
+    """
+    テキスト同士の類似度を計算する。
+
+    Parameters
+    ----------
+    texts : str
+        日本語文のリスト。
+
+    Returns
+    -------
+    List[List[np.float64]]
+        文同士の類似度。
+
+    Notes
+    -----
+    spaCy の Doc.similarity (https://spacy.io/api/doc#similarity) を使っている。
+    """
+    docs = [nlp(text) for text in texts]
+    rows = [[a.similarity(b) for a in docs] for b in docs]
+    return rows
+
+
+EXAMPLE_TEXTS = [
+    '今日はとても良い天気です。',
+    '昨日の天気は大雨だったのに。',
+    'ラーメンを食べました。'
+]
+EXAMPLE_SCRIPT = f'python examples/similarity.py ' + ' '.join(EXAMPLE_TEXTS)
+
+if __name__ == '__main__':
+    if len(sys.argv) > 2:
+        input_texts = sys.argv[1:]
+        pprint(similarity_matrix(input_texts))
+    else:
+        print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)
+```
+
+</div></details>
+
+[ソースコードをGitHubで見る](https://github.com/poyo46/ginza-examples/blob/master/examples/similarity.py)
+
+**実行**
+
+```
+$ python examples/similarity.py 今日はとても良い天気です。 昨日の天気は大雨だったのに。 ラーメンを食べました。
+```
+
+**結果**
+
+|  | 今日はとても良い天気です。 | 昨日の天気は大雨だったのに。 | ラーメンを食べました。 |
+| :-- | :-- | :-- | :-- |
+| 今日はとても良い天気です。 | 1.0 | 0.9085916084662856 | 0.7043564497093551 |
+| 昨日の天気は大雨だったのに。 | 0.9085916084662856 | 1.0 | 0.7341796340817486 |
+| ラーメンを食べました。 | 0.7043564497093551 | 0.7341796340817486 | 1.0 |
+
+
+※結果は見やすいように加工しています。
+
+<details>
+<summary>説明を開く</summary>
+<div>
+
+[spaCy](https://spacy.io/) の [Doc.similarity()](https://spacy.io/api/doc#similarity) を利用して文同士の類似度を計算しています。自分自身との類似度は1で、類似度の値が大きいほど似ているということです。
+
+</div>
+</details>
+
 ## ライセンス
 
 ### GiNZA
+
 [GiNZA](https://github.com/megagonlabs/ginza) そのものは [MIT License](https://github.com/megagonlabs/ginza/blob/develop/LICENSE) で利用できます。詳しくは [ライセンス条項](https://github.com/megagonlabs/ginza#license) をご覧ください。
 
 ### GiNZA examples
+
 筆者の [Qiitaの記事](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971) および [GiNZA examples - GitHub](https://github.com/poyo46/ginza-examples) も同様に [MIT License](https://github.com/poyo46/ginza-examples/blob/master/LICENSE) で利用できます。
 
-## 関連リンク
-* [株式会社リクルートの発表](https://www.recruit.co.jp/newsroom/2019/0402_18331.html)
-* [GiNZAの公開ページ](https://megagonlabs.github.io/ginza/)
-* [spaCy API doc](https://spacy.io/api)
-* [MeCab](https://taku910.github.io/mecab/)
+## 注意事項
+
+* [GiNZA](https://github.com/megagonlabs/ginza) を利用できる言語はPythonのみです。しかしフレームワークである [spaCy](https://spacy.io/) にはJavaScript版やR版など [Python以外の言語での実装](https://spacy.io/universe/category/nonpython) があるため、すごい人たちが移植してくれることを期待します。
+* 単語のネガティブ・ポジティブを数値化する [Token.sentiment](https://spacy.io/api/token#attributes) は現時点で実装されていませんが、 [GiNZA](https://github.com/megagonlabs/ginza) 開発者の方から直々にコメントをいただき、今後実装を計画していただけるとのことです。
 
 ## ご意見・ご要望など
 ご意見・ご要望などは随時受け付けています。 [Qiitaの記事](https://qiita.com/poyo46/items/7a4965455a8a2b2d2971) へコメント、または [GitHubのIssues](https://github.com/poyo46/ginza-examples/issues) へ投稿をお願いします。

@@ -4,7 +4,9 @@ from typing import Dict
 from pathlib import Path
 import yaml
 from dev.util import table_md, template, raw_url
-from examples import token_information, split_text, displacy, lexrank_summary
+from examples import (
+    token_information, split_text, displacy, lexrank_summary, similarity
+)
 
 
 def rep_def() -> Dict[str, str]:
@@ -54,6 +56,17 @@ def updated_rep(dic) -> Dict:
             lexrank_summary.EXAMPLE_PATH,
             lexrank_summary.N
         ))
+    )
+
+    print('similarity')
+    similarity_header = [''] + similarity.EXAMPLE_TEXTS
+    similarity_rows = [[t] + s for t, s in zip(
+        similarity.EXAMPLE_TEXTS,
+        similarity.similarity_matrix(similarity.EXAMPLE_TEXTS)
+    )]
+    dic['similarity'] = template(
+        similarity,
+        result_markdown=table_md(similarity_header, similarity_rows)
     )
 
     return dic

@@ -1,9 +1,8 @@
 import sys
 from typing import List
+from pprint import pprint
 import spacy
 import ginza
-from rich.console import Console
-from rich.table import Table
 
 nlp = spacy.load('ja_ginza')
 
@@ -49,14 +48,6 @@ def tokenize(text: str) -> List[List[str]]:
     return attrs_list
 
 
-def print_table(header: List[str], rows: List[List[str]]) -> None:
-    console = Console()
-    table = Table(*header)
-    for r in rows:
-        table.add_row(*r)
-    console.print(table)
-
-
 EXAMPLE_TEXT = '田中部長に伝えてください。'
 EXAMPLE_SCRIPT = f'python examples/token_information.py {EXAMPLE_TEXT}'
 
@@ -68,6 +59,6 @@ ATTRS = [
 if __name__ == '__main__':
     if len(sys.argv) > 1:
         input_text = sys.argv[1]
-        print_table(ATTRS, tokenize(input_text))
+        pprint(tokenize(input_text))
     else:
         print('Please run as follows: \n$ ' + EXAMPLE_SCRIPT)
