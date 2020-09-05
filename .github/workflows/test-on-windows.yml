@@ -21,7 +21,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install poetry
-          poetry install
+          poetry update
       - name: Test with pytest
         run: |
           echo "::set-env name=PYTHONIOENCODING::utf-8"

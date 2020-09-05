@@ -82,6 +82,7 @@ Pythonに親しみのない方や手っ取り早く動作環境がほしい方�
 
 ```
 git clone https://github.com/poyo46/ginza-examples.git
+cd ginza-examples
 poetry install
 ```
 
