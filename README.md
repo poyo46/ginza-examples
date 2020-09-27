@@ -64,7 +64,7 @@
 
 ## GiNZAを動かす
 
-ここで紹介するコードは [GitHubホストランナーの仮想環境](https://docs.github.com/ja/actions/reference/specifications-for-github-hosted-runners#supported-runners-and-hardware-resources) のubuntu-latest, macos-latestとPython 3.6, 3.7, 3.8の組み合わせ（計6通り）で動作検証しています。
+ここで紹介するコードは [GitHubホストランナーの仮想環境](https://docs.github.com/ja/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners#supported-runners-and-hardware-resources) のubuntu-latest, macos-latestとPython 3.6, 3.7, 3.8の組み合わせ（計6通り）で動作検証しています。
 
 **動作検証結果**
 
